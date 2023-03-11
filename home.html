@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/Bilder/åva.webp" />
+    <link rel="stylesheet" href="common.css" />
+    <link rel="stylesheet" href="hem.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Åva karta</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.138.0/build/three.module.js",
+          "OrbitControls": "https://unpkg.com/three@0.138.0/examples/jsm/controls/OrbitControls.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header>
+      <div id="infoBoxcontainer"><span id="infoBox"></span></div>
+    </header>
+    <main>
+      <div id="stor" class="knapp"><a href="index.html">Karta</a></div>
+      <div class="knapp">Manual</div>
+      <div class="knapp">Förord</div>
+      <div class="knapp">Skapare</div>
+    </main>
+    <canvas id="bg"></canvas>
+    <script type="module" src="meny.js"></script>
+    <script type="module" src="home.js"></script>
+  </body>
+</html>
