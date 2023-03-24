@@ -48,8 +48,8 @@ field.position.set(0, -4, 0);
 scene.add(field);
 console.log(window.innerWidth);
 
-const hlight = new THREE.HemisphereLight(0xffeeb1, 0x080820, 1);
-scene.add(hlight);
+const alight = new THREE.AmbientLight(); // soft white light
+scene.add(alight);
 
 const oControls = new OrbitControls(camera, renderer.domElement);
 oControls.minDistance = 400;

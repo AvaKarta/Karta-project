@@ -34,6 +34,7 @@
 canvas {
   position: fixed;
   top: 10vh;
+  z-index: 30;
 }
 
 body {
@@ -48,7 +49,7 @@ header {
   margin: 0;
   border-bottom: solid var(--Åva-dark-blue);
   position: fixed;
-  z-index: 100;
+  z-index: 20;
   top: 0;
   right: 0;
   left: 0;
