@@ -78,7 +78,7 @@ const oControls = new OrbitControls(camera, renderer.domElement);
 oControls.minPolarAngle = 0;
 oControls.maxPolarAngle = Math.PI * 0.5;
 
-// const fControls = new FlyControls( camera, renderer.domElement);
+// const fControls = new FlyControls(camera, renderer.domElement);
 // fControls.movementSpeed = 30;
 // fControls.rollSpeed = Math.PI / 6;
 // fControls.dragToLook = true;
@@ -87,12 +87,36 @@ GLTF.load(
   "/3D-modeler/plan2.glb",
   function (gltf) {
     scene.add(gltf.scene);
+    console.log(gltf.scene);
+    // gltf.scene.children[1].position.set(10, 10, 10);
   },
   undefined,
+  function (xhr) {
+    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+  },
   function (error) {
     console.error(error);
   }
 );
+
+for (let index = 0; index < 5; index++) {
+  GLTF.load(
+    "/3D-modeler/plan2.glb",
+    function (gltf) {
+      console.log(gltf.scene);
+      scene.add(gltf.scene);
+      gltf.scene.position.set(0, 8.5 * index, 0);
+    },
+    // called while loading is progressing
+    function (xhr) {
+      console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+    },
+    // called when loading has errors
+    function (error) {
+      console.log("An error happened");
+    }
+  );
+}
 
 // function addStar() {
 //   const geometry = new THREE.SphereGeometry(0.25, 24, 24);
@@ -203,6 +227,7 @@ function animate() {
     1
   )}, Y${camera.position.y.toFixed(1)}, Z${camera.position.z.toFixed(1)}`;
 
+  // fControls.update(0.01);
   oControls.update(0.01);
   if (lerpKey == true) {
     if (
@@ -211,7 +236,7 @@ function animate() {
       camera.position.z.toFixed(1) == cameraTarget.z
     ) {
       lerpKey = false;
-      oControls.autoRotate = true;
+      // oControls.autoRotate = true;
     } else {
       camera.position.lerp(cameraTarget, 0.02 * multiplier);
       oControls.target.lerp(orbitTarget, 0.02 * multiplier);
