@@ -64,8 +64,40 @@ console.log(window.innerWidth);
 // const hemisphereLight = new THREE.HemisphereLight();
 // scene.add(hemisphereLight)
 
-const alight = new THREE.AmbientLight(); // soft white light
-scene.add(alight);
+// const alight = new THREE.AmbientLight(); // soft white light
+// scene.add(alight);
+
+const sunLight = new THREE.DirectionalLight("#ffffff", 0.5);
+sunLight.castShadow = true;
+sunLight.shadow.camera.far = 20;
+sunLight.shadow.mapSize.set(1024, 1024);
+sunLight.shadow.normalBias = 0.05;
+sunLight.position.set(100, 100, -100);
+scene.add(sunLight);
+
+const sunLight2 = new THREE.DirectionalLight("#ffffff", 0.5);
+sunLight2.castShadow = true;
+sunLight2.shadow.camera.far = 20;
+sunLight2.shadow.mapSize.set(1024, 1024);
+sunLight2.shadow.normalBias = 0.05;
+sunLight2.position.set(100, 100, 100);
+scene.add(sunLight2);
+
+const sunLight3 = new THREE.DirectionalLight("#ffffff", 0.5);
+sunLight3.castShadow = true;
+sunLight3.shadow.camera.far = 20;
+sunLight3.shadow.mapSize.set(1024, 1024);
+sunLight3.shadow.normalBias = 0.05;
+sunLight3.position.set(-100, 100, 100);
+scene.add(sunLight3);
+
+const sunLight4 = new THREE.DirectionalLight("#ffffff", 0.5);
+sunLight4.castShadow = true;
+sunLight4.shadow.camera.far = 20;
+sunLight4.shadow.mapSize.set(1024, 1024);
+sunLight4.shadow.normalBias = 0.05;
+sunLight4.position.set(-100, 100, -100);
+scene.add(sunLight4);
 
 // const hlight = new THREE.HemisphereLight( 0xffeeb1, 0x080820, 1 );
 // scene.add( hlight );
@@ -84,11 +116,17 @@ oControls.maxPolarAngle = Math.PI * 0.5;
 // fControls.dragToLook = true;
 
 GLTF.load(
-  "/3D-modeler/plan2.glb",
+  "/3D-modeler/skola.glb",
   function (gltf) {
     scene.add(gltf.scene);
     console.log(gltf.scene);
-    // gltf.scene.children[1].position.set(10, 10, 10);
+    if (gltf.scene.children[0].name != "plan2") {
+      location.reload();
+    }
+    gltf.scene.children[0].position.set(0, 0, 0);
+    for (let i = 1; i < 5; i++) {
+      gltf.scene.children[i].position.set(0, 0 + 8.5 * i, 0);
+    }
   },
   undefined,
   function (xhr) {
@@ -98,25 +136,6 @@ GLTF.load(
     console.error(error);
   }
 );
-
-for (let index = 0; index < 5; index++) {
-  GLTF.load(
-    "/3D-modeler/plan2.glb",
-    function (gltf) {
-      console.log(gltf.scene);
-      scene.add(gltf.scene);
-      gltf.scene.position.set(0, 8.5 * index, 0);
-    },
-    // called while loading is progressing
-    function (xhr) {
-      console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-    },
-    // called when loading has errors
-    function (error) {
-      console.log("An error happened");
-    }
-  );
-}
 
 // function addStar() {
 //   const geometry = new THREE.SphereGeometry(0.25, 24, 24);

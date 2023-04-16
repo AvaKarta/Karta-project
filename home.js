@@ -48,8 +48,40 @@ field.position.set(0, -4, 0);
 scene.add(field);
 console.log(window.innerWidth);
 
-const alight = new THREE.AmbientLight(); // soft white light
-scene.add(alight);
+// const alight = new THREE.AmbientLight(); // soft white light
+// scene.add(alight);
+
+const sunLight = new THREE.DirectionalLight("#ffffff", 0.5);
+sunLight.castShadow = true;
+sunLight.shadow.camera.far = 20;
+sunLight.shadow.mapSize.set(1024, 1024);
+sunLight.shadow.normalBias = 0.05;
+sunLight.position.set(100, 100, -100);
+scene.add(sunLight);
+
+const sunLight2 = new THREE.DirectionalLight("#ffffff", 0.5);
+sunLight2.castShadow = true;
+sunLight2.shadow.camera.far = 20;
+sunLight2.shadow.mapSize.set(1024, 1024);
+sunLight2.shadow.normalBias = 0.05;
+sunLight2.position.set(100, 100, 100);
+scene.add(sunLight2);
+
+const sunLight3 = new THREE.DirectionalLight("#ffffff", 0.5);
+sunLight3.castShadow = true;
+sunLight3.shadow.camera.far = 20;
+sunLight3.shadow.mapSize.set(1024, 1024);
+sunLight3.shadow.normalBias = 0.05;
+sunLight3.position.set(-100, 100, 100);
+scene.add(sunLight3);
+
+const sunLight4 = new THREE.DirectionalLight("#ffffff", 0.5);
+sunLight4.castShadow = true;
+sunLight4.shadow.camera.far = 20;
+sunLight4.shadow.mapSize.set(1024, 1024);
+sunLight4.shadow.normalBias = 0.05;
+sunLight4.position.set(-100, 100, -100);
+scene.add(sunLight4);
 
 const oControls = new OrbitControls(camera, renderer.domElement);
 oControls.minDistance = 400;
@@ -59,7 +91,7 @@ oControls.target.set(-90, 0, 50);
 oControls.autoRotate = true;
 
 GLTF.load(
-  "/3D-modeler/plan2.glb",
+  "/3D-modeler/skola.glb",
   function (gltf) {
     scene.add(gltf.scene);
   },
