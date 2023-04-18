@@ -132,11 +132,12 @@ GLTF.load(
     salLista.forEach((sal) => {
       dataList.innerHTML += `<option>${sal}</option>`;
     });
-
+    const standardCameratarget = new THREE.Vector3(-230, 40, -20);
+    const standardOrbittarget = new THREE.Vector3(0, 0, -80);
     let cameraTarget = new THREE.Vector3(0, 30, 30);
     let orbitTarget = new THREE.Vector3();
-    let nextCameratarget = new THREE.Vector3();
-    let lerpKey = false;
+    let cameraKey = false;
+    let animationKey = false;
     let plantest = new THREE.Vector3(0, 100, 0);
     let level = 0;
     addEventListener("submit", (event) => {
@@ -157,13 +158,8 @@ GLTF.load(
           salar[input].orbitcenter[1],
           salar[input].orbitcenter[2]
         );
-        nextCameratarget.set(
-          salar[input].orbitcenter[0],
-          salar[input].orbitcenter[1] + 31,
-          salar[input].orbitcenter[2] + 30
-        );
 
-        lerpKey = true;
+        animationKey = true;
         oControls.autoRotate = false;
       } else {
         alert("Salen finns inte!");
@@ -172,37 +168,72 @@ GLTF.load(
 
     console.log(cameraTarget.x);
     let multiplier = 1.0015;
+    let secondMultiplier = 1.0015;
+    let thirdMultiplier = 1.0015;
 
     function animate() {
       requestAnimationFrame(animate);
 
-      infoBox.innerHTML = `Position: X${camera.position.x.toFixed(
+      infoBox.innerHTML = `Position: X ${camera.position.x.toFixed(
         1
-      )}, Y${camera.position.y.toFixed(1)}, Z${camera.position.z.toFixed(1)}`;
+      )}, Y ${camera.position.y.toFixed(1)}, Z ${camera.position.z.toFixed(1)}`;
 
       // fControls.update(0.01);
       oControls.update(0.01);
-      if (lerpKey == true) {
+      if (animationKey == true) {
         if (
           camera.position.x.toFixed(1) == cameraTarget.x &&
           camera.position.y.toFixed(1) == cameraTarget.y &&
           camera.position.z.toFixed(1) == cameraTarget.z
         ) {
-          lerpKey = false;
-          multiplier = 1.00001;
+          animationKey = false;
+          multiplier = 1.0015;
+          secondMultiplier = 1.0015;
+          thirdMultiplier = 1.0015;
           // oControls.autoRotate = true;
         } else {
-          camera.position.lerp(cameraTarget, 0.02 * multiplier);
-          oControls.target.lerp(orbitTarget, 0.02 * multiplier);
-          for (let index = level - 1; index < 5; index++) {
-            plantest.set(0, 150 + 8.5 * index, 0);
-            object.children[index].position.lerp(plantest, 0.02 * multiplier);
+          let newLevel = level - 1;
+          console.log(object.children[newLevel].position);
+          if (
+            object.children[newLevel].position.y.toFixed(1) ==
+              150 + 8.5 * (level - 1) &&
+            object.children[level - 2].position.y.toFixed(1) ==
+              8.5 * (level - 2)
+          ) {
+            camera.position.lerp(cameraTarget, 0.02 * thirdMultiplier);
+            oControls.target.lerp(orbitTarget, 0.02 * thirdMultiplier);
+            cameraKey = false;
+            thirdMultiplier += 0.015;
+          } else {
+            if (cameraKey) {
+              for (let index = level - 1; index < 5; index++) {
+                plantest.set(0, 150 + 8.5 * index, 0);
+                object.children[index].position.lerp(
+                  plantest,
+                  0.02 * secondMultiplier
+                );
+              }
+              for (let index = 0; index < level - 1; index++) {
+                plantest.set(0, 8.5 * index, 0);
+                object.children[index].position.lerp(
+                  plantest,
+                  0.02 * secondMultiplier
+                );
+              }
+              secondMultiplier += 0.015;
+            } else {
+              camera.position.lerp(standardCameratarget, 0.02 * multiplier);
+              oControls.target.lerp(standardOrbittarget, 0.02 * multiplier);
+              if (
+                camera.position.x.toFixed(1) == standardCameratarget.x &&
+                camera.position.y.toFixed(1) == standardCameratarget.y &&
+                camera.position.z.toFixed(1) == standardCameratarget.z
+              ) {
+                cameraKey = true;
+              }
+            }
+            multiplier += 0.015;
           }
-          for (let index = 0; index < level - 1; index++) {
-            plantest.set(0, 8.5 * index, 0);
-            object.children[index].position.lerp(plantest, 0.02 * multiplier);
-          }
-          multiplier += 0.015;
         }
       }
 
