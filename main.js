@@ -3,7 +3,6 @@ import * as THREE from "https://unpkg.com/three@0.138.0/build/three.module.js";
 import { OrbitControls } from "https://unpkg.com/three@0.138.0/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "https://unpkg.com/three@0.138.0/examples/jsm/loaders/GLTFLoader.js";
 import { FlyControls } from "https://unpkg.com/three@0.138.0/examples/jsm/controls/FlyControls.js";
-import { TWEEN } from "https://unpkg.com/three@0.139.0/examples/jsm/libs/tween.module.min.js";
 
 const GLTF = new GLTFLoader();
 
@@ -29,7 +28,7 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   10000
 );
-camera.position.set(0, 30, 0);
+camera.position.set(-230, 40, -20);
 
 const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector("#bg"),
@@ -37,8 +36,6 @@ const renderer = new THREE.WebGLRenderer({
 
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight * 0.9);
-
-camera.position.setZ(30);
 
 const grass = loader.load("/Bilder/grass.jfif");
 grass.wrapS = THREE.RepeatWrapping;
@@ -52,20 +49,6 @@ field.rotation.x -= Math.PI / 2;
 field.position.set(0, -4, 0);
 scene.add(field);
 console.log(window.innerWidth);
-
-// const pointLight = new THREE.PointLight(0xffffff,1)
-// pointLight.position.set(200,100,200)
-// const pointLight2 = new THREE.PointLight(0xffffff,1)
-// pointLight2.position.set(-500,50,-200)
-
-// scene.add(pointLight)
-// scene.add(pointLight2)
-
-// const hemisphereLight = new THREE.HemisphereLight();
-// scene.add(hemisphereLight)
-
-// const alight = new THREE.AmbientLight(); // soft white light
-// scene.add(alight);
 
 const sunLight = new THREE.DirectionalLight("#ffffff", 0.5);
 sunLight.castShadow = true;
@@ -99,25 +82,20 @@ sunLight4.shadow.normalBias = 0.05;
 sunLight4.position.set(-100, 100, -100);
 scene.add(sunLight4);
 
-// const hlight = new THREE.HemisphereLight( 0xffeeb1, 0x080820, 1 );
-// scene.add( hlight );
-
-// const lightHelper = new THREE.PointLightHelper(pointLight)
-// const gridHelper = new THREE.GridHelper(50, 50);
-// scene.add(lightHelper,gridHelper)
-
 const oControls = new OrbitControls(camera, renderer.domElement);
 oControls.minPolarAngle = 0;
 oControls.maxPolarAngle = Math.PI * 0.5;
+oControls.target.set(0, 0, -80);
 
 // const fControls = new FlyControls(camera, renderer.domElement);
 // fControls.movementSpeed = 30;
-// fControls.rollSpeed = Math.PI / 6;
+// fControls.rollSpeed = Math.PI / 2;
 // fControls.dragToLook = true;
 
 GLTF.load(
   "/3D-modeler/skola.glb",
   function (gltf) {
+    var object = gltf.scene;
     scene.add(gltf.scene);
     console.log(gltf.scene);
     if (gltf.scene.children[0].name != "plan2") {
@@ -127,6 +105,111 @@ GLTF.load(
     for (let i = 1; i < 5; i++) {
       gltf.scene.children[i].position.set(0, 0 + 8.5 * i, 0);
     }
+    const salar = {
+      2244: { orbitcenter: [-114, 0.5, -98.4], level: 2, side: "Nord" },
+      2247: { orbitcenter: [-98.3, 0.5, -98.4], level: 2, side: "Nord" },
+      2250: { orbitcenter: [-77, 0.5, -98.4], level: 2, side: "Nord" },
+      2248: { orbitcenter: [-55.5, 0.5, -98.4], level: 2, side: "Nord" },
+      2200: { orbitcenter: [-33, 0.5, -94], level: 2, side: "Nord" },
+      2251: { orbitcenter: [-23.3, 0.5, -98.4], level: 2, side: "Nord" },
+      2252: { orbitcenter: [-6.2, 0.5, -98.4], level: 2, side: "Nord" },
+      2254: { orbitcenter: [17, 0.5, -98.4], level: 2, side: "Nord" },
+      2255: { orbitcenter: [36.2, 0.5, -98.4], level: 2, side: "Nord" },
+      2256: { orbitcenter: [50, 0.5, -98.4], level: 2, side: "Nord" },
+      2257: { orbitcenter: [72, 0.5, -98.4], level: 2, side: "Nord" },
+      2258: { orbitcenter: [98.5, 0.5, -98.4], level: 2, side: "Nord" },
+      2260: { orbitcenter: [114.5, 0.5, -102.4], level: 2, side: "Nord" },
+      2266: { orbitcenter: [122.4, 0.5, -98.4], level: 2, side: "Nord" },
+      2270: { orbitcenter: [141, 0.5, -98.4], level: 2, side: "Nord" },
+      2: { orbitcenter: [-5.1, 1, -98.9], level: 2, side: "Nord" },
+      3: { orbitcenter: [-5.1, 9.5, -98.9], level: 3, side: "Nord" },
+      4: { orbitcenter: [-5.1, 17.5, -98.9], level: 4, side: "Nord" },
+      5: { orbitcenter: [-5.1, 25.7, -98.9], level: 5, side: "Nord" },
+      6: { orbitcenter: [-5.1, 34.7, -98.9], level: 6, side: "Nord" },
+    };
+
+    const salLista = Object.keys(salar);
+    salLista.forEach((sal) => {
+      dataList.innerHTML += `<option>${sal}</option>`;
+    });
+
+    let cameraTarget = new THREE.Vector3(0, 30, 30);
+    let orbitTarget = new THREE.Vector3();
+    let nextCameratarget = new THREE.Vector3();
+    let lerpKey = false;
+    let plantest = new THREE.Vector3(0, 100, 0);
+    let level = 0;
+    addEventListener("submit", (event) => {
+      event.preventDefault();
+      let input = document.getElementById("search").value;
+      if (salar.hasOwnProperty(input)) {
+        console.log(input);
+        console.log(salar[input].level);
+
+        level = salar[input].level;
+        cameraTarget.set(
+          salar[input].orbitcenter[0],
+          salar[input].orbitcenter[1] + 30,
+          salar[input].orbitcenter[2] + 30
+        );
+        orbitTarget.set(
+          salar[input].orbitcenter[0],
+          salar[input].orbitcenter[1],
+          salar[input].orbitcenter[2]
+        );
+        nextCameratarget.set(
+          salar[input].orbitcenter[0],
+          salar[input].orbitcenter[1] + 31,
+          salar[input].orbitcenter[2] + 30
+        );
+
+        lerpKey = true;
+        oControls.autoRotate = false;
+      } else {
+        alert("Salen finns inte!");
+      }
+    });
+
+    console.log(cameraTarget.x);
+    let multiplier = 1.0015;
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      infoBox.innerHTML = `Position: X${camera.position.x.toFixed(
+        1
+      )}, Y${camera.position.y.toFixed(1)}, Z${camera.position.z.toFixed(1)}`;
+
+      // fControls.update(0.01);
+      oControls.update(0.01);
+      if (lerpKey == true) {
+        if (
+          camera.position.x.toFixed(1) == cameraTarget.x &&
+          camera.position.y.toFixed(1) == cameraTarget.y &&
+          camera.position.z.toFixed(1) == cameraTarget.z
+        ) {
+          lerpKey = false;
+          multiplier = 1.00001;
+          // oControls.autoRotate = true;
+        } else {
+          camera.position.lerp(cameraTarget, 0.02 * multiplier);
+          oControls.target.lerp(orbitTarget, 0.02 * multiplier);
+          for (let index = level - 1; index < 5; index++) {
+            plantest.set(0, 150 + 8.5 * index, 0);
+            object.children[index].position.lerp(plantest, 0.02 * multiplier);
+          }
+          for (let index = 0; index < level - 1; index++) {
+            plantest.set(0, 8.5 * index, 0);
+            object.children[index].position.lerp(plantest, 0.02 * multiplier);
+          }
+          multiplier += 0.015;
+        }
+      }
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
   },
   undefined,
   function (xhr) {
@@ -136,46 +219,6 @@ GLTF.load(
     console.error(error);
   }
 );
-
-// function addStar() {
-//   const geometry = new THREE.SphereGeometry(0.25, 24, 24);
-//   const material = new THREE.MeshStandardMaterial({ color: 0x0FFFFFF});
-//   const star = new THREE.Mesh( geometry, material);
-
-//   const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread( 100 ) );
-
-//   star.position.set(x, y, z);
-//   scene.add(star)
-// }
-
-// Array(200).fill().forEach(addStar)
-
-// const spaceTexture = new THREE.TextureLoader().load('blueSpace.jpg')
-// scene.background = spaceTexture
-
-// const ft = loader.load('../skyimage/Daylight Box_Front.jpg')
-// const bt = loader.load('../skyimage/Daylight Box_Bottom.jpg')
-// const up = loader.load('../skyimage/Daylight Box_Top.jpg')
-// const dn = loader.load('../skyimage/Daylight Box_Bottom.jpg')
-// const rt = loader.load('../skyimage/Daylight Box_Right.jpg')
-// const lf = loader.load('../skyimage/Daylight Box_Left.jpg')
-
-// let skyBoxarray = []
-
-// skyBoxarray.push(new THREE.MeshBasicMaterial({ map: ft}))
-// skyBoxarray.push(new THREE.MeshBasicMaterial({ map: bt}))
-// skyBoxarray.push(new THREE.MeshBasicMaterial({ map: up}))
-// skyBoxarray.push(new THREE.MeshBasicMaterial({ map: dn}))
-// skyBoxarray.push(new THREE.MeshBasicMaterial({ map: rt}))
-// skyBoxarray.push(new THREE.MeshBasicMaterial({ map: lf}))
-
-// for(let i=0; i<6; i++){
-//   skyBoxarray[i].side = THREE.BackSide;
-// }
-
-// let skyBoxgeo = new THREE.BoxGeometry(1000,1000,1000)
-// let skybox = new THREE.Mesh(skyBoxgeo,skyBoxarray)
-// scene.add(skybox)
 
 const infoBox = document.querySelector("#infoBox");
 const dataList = document.querySelector("#salar");
@@ -192,78 +235,3 @@ function resize() {
 }
 
 window.addEventListener("resize", resize);
-
-const salar = {
-  2248: { orbitcenter: [-210.3, -2.5, -50], level: 2, side: "Nord" },
-  2247: { orbitcenter: [-170.2, -2.5, -50], level: 2, side: "Nord" },
-  2250: { orbitcenter: [-144.7, -2.5, -50], level: 2, side: "Nord" },
-};
-
-const salLista = Object.keys(salar);
-salLista.forEach((sal) => {
-  dataList.innerHTML += `<option>${sal}</option>`;
-});
-
-let cameraTarget = new THREE.Vector3(0, 30, 30);
-let orbitTarget = new THREE.Vector3();
-let nextCameratarget = new THREE.Vector3();
-let lerpKey = false;
-
-addEventListener("submit", (event) => {
-  event.preventDefault();
-  let input = document.getElementById("search").value;
-  console.log(input);
-  console.log(salar[input].level);
-
-  cameraTarget.set(
-    salar[input].orbitcenter[0],
-    salar[input].orbitcenter[1] + 20,
-    salar[input].orbitcenter[2] + 20
-  );
-  orbitTarget.set(
-    salar[input].orbitcenter[0],
-    salar[input].orbitcenter[1],
-    salar[input].orbitcenter[2]
-  );
-  nextCameratarget.set(
-    salar[input].orbitcenter[0],
-    salar[input].orbitcenter[1] + 21,
-    salar[input].orbitcenter[2] + 20
-  );
-  // oControls.target.set(salar[input].orbitcenter[0],salar[input].orbitcenter[1],salar[input].orbitcenter[2]);
-  // camera.position.set(salar[input].orbitcenter[0],salar[input].orbitcenter[1]+20,salar[input].orbitcenter[2]+20)
-  lerpKey = true;
-  oControls.autoRotate = false;
-});
-
-console.log(cameraTarget.x);
-let multiplier = 1.00001;
-
-function animate() {
-  requestAnimationFrame(animate);
-
-  infoBox.innerHTML = `Position: X${camera.position.x.toFixed(
-    1
-  )}, Y${camera.position.y.toFixed(1)}, Z${camera.position.z.toFixed(1)}`;
-
-  // fControls.update(0.01);
-  oControls.update(0.01);
-  if (lerpKey == true) {
-    if (
-      camera.position.x.toFixed(1) == cameraTarget.x &&
-      camera.position.y.toFixed(1) == cameraTarget.y &&
-      camera.position.z.toFixed(1) == cameraTarget.z
-    ) {
-      lerpKey = false;
-      // oControls.autoRotate = true;
-    } else {
-      camera.position.lerp(cameraTarget, 0.02 * multiplier);
-      oControls.target.lerp(orbitTarget, 0.02 * multiplier);
-      multiplier += 0.01;
-    }
-  }
-
-  renderer.render(scene, camera);
-}
-
-animate();
