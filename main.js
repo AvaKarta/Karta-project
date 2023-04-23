@@ -4,10 +4,25 @@ import { OrbitControls } from "https://unpkg.com/three@0.138.0/examples/jsm/cont
 import { GLTFLoader } from "https://unpkg.com/three@0.138.0/examples/jsm/loaders/GLTFLoader.js";
 import { FlyControls } from "https://unpkg.com/three@0.138.0/examples/jsm/controls/FlyControls.js";
 
+const apiKey = "ea9430c8ead841e493b132724231602";
+
+const api =
+  "https://api.weatherapi.com/v1/current.json?key=ea9430c8ead841e493b132724231602&q=Taby&aqi=no";
+
+async function getWeather(url) {
+  let response = await fetch(url);
+  // Detta gör om resultatet från APIet till ett JSON-objekt.
+  let json = await response.json();
+  console.log(json);
+  return json.current.condition.text;
+}
+
+console.log(await getWeather(api));
+
+getWeather(api);
+
 const GLTF = new GLTFLoader();
-
 const loader = new THREE.TextureLoader();
-
 const scene = new THREE.Scene();
 scene.background = new THREE.CubeTextureLoader()
   .setPath("Bilder/skyimage/")
