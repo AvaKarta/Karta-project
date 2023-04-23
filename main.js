@@ -113,13 +113,34 @@ GLTF.load(
     var object = gltf.scene;
     scene.add(gltf.scene);
     console.log(gltf.scene);
-    if (gltf.scene.children[0].name != "plan2") {
-      location.reload();
+    if (true) {
+      // location.reload();
+      let orderedList = [];
+      for (let i = 2; i < object.children.length + 2; i++) {
+        object.children.forEach((element) => {
+          if (element.name[4] == i) {
+            orderedList.push(element);
+          }
+        });
+      }
+
+      object.children.splice(
+        0,
+        6,
+        orderedList[0],
+        orderedList[1],
+        orderedList[2],
+        orderedList[3],
+        orderedList[4],
+        orderedList[5]
+      );
     }
+    console.log(gltf.scene);
     gltf.scene.children[0].position.set(0, 0, 0);
-    for (let i = 1; i < 5; i++) {
+    for (let i = 1; i < 6; i++) {
       gltf.scene.children[i].position.set(0, 0 + 8.5 * i, 0);
     }
+
     const salar = {
       2244: { orbitcenter: [-114, 0.5, -98.4], level: 2, side: "Nord" },
       2247: { orbitcenter: [-98.3, 0.5, -98.4], level: 2, side: "Nord" },
@@ -221,7 +242,7 @@ GLTF.load(
             thirdMultiplier += 0.015;
           } else {
             if (cameraKey) {
-              for (let index = level - 1; index < 5; index++) {
+              for (let index = level - 1; index < 6; index++) {
                 plantest.set(0, 150 + 8.5 * index, 0);
                 object.children[index].position.lerp(
                   plantest,
