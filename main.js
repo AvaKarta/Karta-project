@@ -19,21 +19,61 @@ async function getWeather(url) {
 
 console.log(await getWeather(api));
 
-getWeather(api);
+const weather = getWeather(api);
+
+// if (weather == "sunny") {
+//   /* light
+//    */
+// }
+
+// if (weather == "cloudy") {
+//   /* light
+//    */
+// }
+
+// if (weather == "raining") {
+//   /* light
+//     raining
+//   */
+// }
+
+// if (weather == "snowing") {
+//   /* light
+//     snow
+//   */
+// }
 
 const GLTF = new GLTFLoader();
 const loader = new THREE.TextureLoader();
 const scene = new THREE.Scene();
-scene.background = new THREE.CubeTextureLoader()
-  .setPath("Bilder/skyimage/")
-  .load([
-    "Daylight Box_Right.jpg",
-    "Daylight Box_Left.jpg",
-    "Daylight Box_Top.jpg",
-    "Daylight Box_Bottom.jpg",
-    "Daylight Box_Front.jpg",
-    "Daylight Box_Back.jpg",
-  ]);
+// scene.background = new THREE.CubeTextureLoader()
+//   .setPath("Bilder/skyimage/")
+//   .load([
+//     "Daylight Box_Right.jpg",
+//     "Daylight Box_Left.jpg",
+//     "Daylight Box_Top.jpg",
+//     "Daylight Box_Bottom.jpg",
+//     "Daylight Box_Front.jpg",
+//     "Daylight Box_Back.jpg",
+//   ]);
+
+let skySphere = new THREE.SphereGeometry(4000, 100, 100);
+
+skySphere.scale(-1, 1, 1);
+
+let skyMaterial = new THREE.MeshBasicMaterial({
+  map: loader.load("Bilder/skyimage/CasualDay4K.jpg"),
+});
+
+let Sky = new THREE.Mesh(skySphere, skyMaterial);
+
+scene.add(Sky);
+
+loader.load("Bilder/skyimage/CasualDay4K.jpg", function (texture) {
+  let material = new THREE.MeshBasicMaterial();
+  material.envMap = texture;
+  scene.background = material;
+});
 
 let height = window.innerHeight * 0.9;
 
