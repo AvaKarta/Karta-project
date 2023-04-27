@@ -250,6 +250,8 @@ GLTF.load(
     function animate() {
       requestAnimationFrame(animate);
 
+      Sky.position.set(camera.position.x, camera.position.y, camera.position.z);
+
       infoBox.innerHTML = `Position: X ${camera.position.x.toFixed(
         1
       )}, Y ${camera.position.y.toFixed(1)}, Z ${camera.position.z.toFixed(1)}`;
