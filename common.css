@@ -32,8 +32,6 @@
 }
 
 canvas {
-  position: fixed;
-  top: 10vh;
   z-index: 30;
 }
 
@@ -76,6 +74,9 @@ li:first-child {
 }
 
 .hamburger {
+  position: fixed;
+  right: 10px;
+  z-index: 201;
   cursor: pointer;
   width: 10vh;
   height: 10vh;

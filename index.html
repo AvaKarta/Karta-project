@@ -34,13 +34,20 @@
         <datalist id="salar"> </datalist>
       </form>
       <div id="infoBoxcontainer"><span id="infoBox"></span></div>
-      <button class="hamburger">
-        <!-- material icons https://material.io/resources/icons/ -->
-        <i class="menuIcon fa-solid fa-bars"></i>
-        <i id="closeIcon" class="fa-solid fa-xmark"></i>
-      </button>
     </header>
-    <canvas id="bg"></canvas>
+    <button class="hamburger">
+      <!-- material icons https://material.io/resources/icons/ -->
+      <i class="menuIcon fa-solid fa-bars"></i>
+      <i id="closeIcon" class="fa-solid fa-xmark"></i>
+    </button>
+    <main>
+      <section>
+        <div id="weather"></div>
+        <div id="classroom"></div>
+      </section>
+      <canvas id="bg"></canvas>
+    </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script type="module" src="main.js"></script>
     <script type="module" src="meny.js"></script>
     <script

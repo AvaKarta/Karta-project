@@ -4,85 +4,360 @@ import { OrbitControls } from "https://unpkg.com/three@0.138.0/examples/jsm/cont
 import { GLTFLoader } from "https://unpkg.com/three@0.138.0/examples/jsm/loaders/GLTFLoader.js";
 import { FlyControls } from "https://unpkg.com/three@0.138.0/examples/jsm/controls/FlyControls.js";
 
+/* skapar tids variablar */
+
+const d = new Date();
+let date = d.getDay() - 1;
+let minutes = d.getMinutes();
+let hour = d.getHours();
+
+/*   Ett objekt med schema för olika klasser  */
+
+const schema = {
+  te21d: [
+    [
+      {
+        start: { hour: 8, minute: 55 },
+        end: { hour: 10, minute: 10 },
+        sal: 5246,
+        type: "lektion",
+      },
+      {
+        start: { hour: 10, minute: 11 },
+        end: { hour: 10, minute: 19 },
+        sal: "none",
+        type: "rast",
+      },
+      {
+        start: { hour: 10, minute: 20 },
+        end: { hour: 11, minute: 20 },
+        sal: 4209,
+        type: "lektion",
+      },
+      {
+        start: { hour: 11, minute: 21 },
+        end: { hour: 12, minute: 44 },
+        sal: "none",
+        type: "lunch",
+      },
+      {
+        start: { hour: 12, minute: 45 },
+        end: { hour: 14, minute: 0 },
+        sal: 3536,
+        type: "lektion",
+      },
+      {
+        start: { hour: 14, minute: 1 },
+        end: { hour: 14, minute: 9 },
+        sal: "none",
+        type: "rast",
+      },
+      {
+        start: { hour: 14, minute: 10 },
+        end: { hour: 15, minute: 35 },
+        sal: "3604B",
+        type: "lektion",
+      },
+    ],
+    [
+      {
+        start: { hour: 8, minute: 20 },
+        end: { hour: 9, minute: 50 },
+        sal: "3531A",
+        type: "lektion",
+      },
+      {
+        start: { hour: 9, minute: 51 },
+        end: { hour: 9, minute: 59 },
+        sal: "none",
+        type: "rast",
+      },
+      {
+        start: { hour: 10, minute: 0 },
+        end: { hour: 11, minute: 15 },
+        sal: 3612,
+        type: "lektion",
+      },
+      {
+        start: { hour: 11, minute: 16 },
+        end: { hour: 12, minute: 9 },
+        sal: "none",
+        type: "lunch",
+      },
+      {
+        start: { hour: 12, minute: 10 },
+        end: { hour: 13, minute: 30 },
+        sal: 4210,
+        type: "lektion",
+      },
+      {
+        start: { hour: 13, minute: 31 },
+        end: { hour: 13, minute: 34 },
+        sal: "none",
+        type: "rast",
+      },
+      {
+        start: { hour: 13, minute: 35 },
+        end: { hour: 14, minute: 5 },
+        sal: 4210,
+        type: "lektion",
+      },
+      {
+        start: { hour: 14, minute: 6 },
+        end: { hour: 14, minute: 19 },
+        sal: "none",
+        type: "rast",
+      },
+      {
+        start: { hour: 14, minute: 20 },
+        end: { hour: 15, minute: 45 },
+        sal: 3607,
+        type: "lektion",
+      },
+    ],
+    [
+      {
+        start: { hour: 9, minute: 35 },
+        end: { hour: 10, minute: 50 },
+        sal: 3607,
+        type: "lektion",
+      },
+      {
+        start: { hour: 10, minute: 56 },
+        end: { hour: 11, minute: 4 },
+        sal: "none",
+        type: "rast",
+      },
+      {
+        start: { hour: 11, minute: 5 },
+        end: { hour: 12, minute: 15 },
+        sal: "3531A",
+        type: "lektion",
+      },
+      {
+        start: { hour: 12, minute: 16 },
+        end: { hour: 13, minute: 9 },
+        sal: "none",
+        type: "lunch",
+      },
+      {
+        start: { hour: 13, minute: 10 },
+        end: { hour: 14, minute: 35 },
+        sal: 6233,
+        type: "lektion",
+      },
+    ],
+    [
+      {
+        start: { hour: 10, minute: 0 },
+        end: { hour: 11, minute: 15 },
+        sal: 4246,
+        type: "lektion",
+      },
+      {
+        start: { hour: 11, minute: 16 },
+        end: { hour: 11, minute: 24 },
+        sal: "none",
+        type: "rast",
+      },
+      {
+        start: { hour: 11, minute: 25 },
+        end: { hour: 12, minute: 35 },
+        sal: 5209,
+        type: "lektion",
+      },
+      {
+        start: { hour: 12, minute: 36 },
+        end: { hour: 13, minute: 24 },
+        sal: "none",
+        type: "lunch",
+      },
+      {
+        start: { hour: 13, minute: 25 },
+        end: { hour: 14, minute: 35 },
+        sal: 3607,
+        type: "lektion",
+      },
+    ],
+    [
+      {
+        start: { hour: 8, minute: 40 },
+        end: { hour: 9, minute: 50 },
+        sal: 3536,
+        type: "lektion",
+      },
+      {
+        start: { hour: 9, minute: 51 },
+        end: { hour: 9, minute: 59 },
+        sal: "none",
+        type: "rast",
+      },
+      {
+        start: { hour: 10, minute: 0 },
+        end: { hour: 11, minute: 15 },
+        sal: 6234,
+        type: "lektion",
+      },
+      {
+        start: { hour: 11, minute: 16 },
+        end: { hour: 12, minute: 4 },
+        sal: "none",
+        type: "lunch",
+      },
+      {
+        start: { hour: 12, minute: 5 },
+        end: { hour: 13, minute: 30 },
+        sal: 3403,
+        type: "lektion",
+      },
+      {
+        start: { hour: 13, minute: 31 },
+        end: { hour: 13, minute: 39 },
+        sal: "none",
+        type: "rast",
+      },
+      {
+        start: { hour: 13, minute: 40 },
+        end: { hour: 15, minute: 5 },
+        sal: "4210",
+        type: "lektion",
+      },
+    ],
+  ],
+};
+
+/* Ett objekt med kordinater för alla klassrum*/
+
+const salar = {
+  2244: { orbitcenter: [-114, 0.5, -98.4], level: 2, side: "Nord" },
+  2247: { orbitcenter: [-98.3, 0.5, -98.4], level: 2, side: "Nord" },
+  2250: { orbitcenter: [-77, 0.5, -98.4], level: 2, side: "Nord" },
+  2248: { orbitcenter: [-55.5, 0.5, -98.4], level: 2, side: "Nord" },
+  2200: { orbitcenter: [-33, 0.5, -94], level: 2, side: "Nord" },
+  2251: { orbitcenter: [-23.3, 0.5, -98.4], level: 2, side: "Nord" },
+  2252: { orbitcenter: [-6.2, 0.5, -98.4], level: 2, side: "Nord" },
+  2254: { orbitcenter: [17, 0.5, -98.4], level: 2, side: "Nord" },
+  2255: { orbitcenter: [36.2, 0.5, -98.4], level: 2, side: "Nord" },
+  2256: { orbitcenter: [50, 0.5, -98.4], level: 2, side: "Nord" },
+  2257: { orbitcenter: [72, 0.5, -98.4], level: 2, side: "Nord" },
+  2258: { orbitcenter: [98.5, 0.5, -98.4], level: 2, side: "Nord" },
+  2260: { orbitcenter: [114.5, 0.5, -102.4], level: 2, side: "Nord" },
+  2266: { orbitcenter: [122.4, 0.5, -98.4], level: 2, side: "Nord" },
+  2270: { orbitcenter: [141, 0.5, -98.4], level: 2, side: "Nord" },
+  2: { orbitcenter: [-5.1, 1, -98.9], level: 2, side: "Nord" },
+  3: { orbitcenter: [-5.1, 9.5, -98.9], level: 3, side: "Nord" },
+  4: { orbitcenter: [-5.1, 17.5, -98.9], level: 4, side: "Nord" },
+  5: { orbitcenter: [-5.1, 25.7, -98.9], level: 5, side: "Nord" },
+  6: { orbitcenter: [-5.1, 34.7, -98.9], level: 6, side: "Nord" },
+};
+
+const classroom = document.querySelector("#classroom");
+const dataList = document.querySelector("#salar");
+
+/* Lägger till sökbara termer till sök input */
+
+const salLista = Object.keys(salar);
+const klasser = Object.keys(schema);
+klasser.forEach((klass) => {
+  dataList.innerHTML += `<option>${klass}</option>`;
+});
+salLista.forEach((sal) => {
+  dataList.innerHTML += `<option>${sal}</option>`;
+});
+
+/*  En funktion för att veta visa vilken sal som en klass har lektion i */
+
+function getLektion(klass) {
+  let sal = "";
+  let nextSal = "";
+  const day = schema[klass][date];
+  let free = true;
+
+  for (let index = 0; index < day.length; index++) {
+    const lektion = day[index];
+    if (
+      lektion.start.hour * 60 + lektion.start.minute <= hour * 60 + minutes &&
+      lektion.end.hour * 60 + lektion.end.minute >= hour * 60 + minutes
+    ) {
+      if (lektion.sal == "none") {
+        sal = "rast";
+        nextSal = day[index + 1].sal;
+        free = false;
+        type = lektion.type;
+      } else {
+        sal = lektion.sal;
+        nextSal = day[index + 2].sal;
+        free = false;
+        type = lektion.type;
+      }
+    }
+  }
+
+  if (free) {
+    classroom.innerHTML = "<span>Just nu har du ingen skola</span>";
+  } else {
+    if ((type = "rast")) {
+      classroom.innerHTML = `<span>Just nu har du Rast</span>
+      <span>Nästa lektion är i sal  ${nextSal}</span>`;
+    } else {
+      classroom.innerHTML = `<span>Just nu har du lektion i sal ${sal}</span>
+    <span>Nästa lektion är i sal ${nextSal}</span>`;
+    }
+  }
+}
+
+/* skapar några variablar */
+
+const infoBox = document.querySelector("#infoBox");
+const infoBoxcontainer = document.querySelector("#infoBoxcontainer");
+infoBoxcontainer.style.display = "none";
+
 const apiKey = "ea9430c8ead841e493b132724231602";
+const weatherContainer = document.querySelector("#weather");
 
 const api =
   "https://api.weatherapi.com/v1/current.json?key=ea9430c8ead841e493b132724231602&q=Taby&aqi=no";
+
+/* kollar upp vädret vid åva och skriver ut det i section*/
 
 async function getWeather(url) {
   let response = await fetch(url);
   // Detta gör om resultatet från APIet till ett JSON-objekt.
   let json = await response.json();
   console.log(json);
-  return json.current.condition.text;
+  weatherContainer.innerHTML = `<img id="weather-icon" src="${
+    json.current.condition.icon
+  }" alt="Weather icon" height="${window.innerHeight * 0.1}px">
+  <span>${json.current.condition.text}</span>
+  <span>Känns som ${json.current.feelslike_c}°</span>`;
 }
 
-console.log(await getWeather(api));
+getWeather(api);
 
-const weather = getWeather(api);
-
-// if (weather == "sunny") {
-//   /* light
-//    */
-// }
-
-// if (weather == "cloudy") {
-//   /* light
-//    */
-// }
-
-// if (weather == "raining") {
-//   /* light
-//     raining
-//   */
-// }
-
-// if (weather == "snowing") {
-//   /* light
-//     snow
-//   */
-// }
+/*  Skapar det nödvändgia för THREE.js*/
 
 const GLTF = new GLTFLoader();
 const loader = new THREE.TextureLoader();
 const scene = new THREE.Scene();
-// scene.background = new THREE.CubeTextureLoader()
-//   .setPath("Bilder/skyimage/")
-//   .load([
-//     "Daylight Box_Right.jpg",
-//     "Daylight Box_Left.jpg",
-//     "Daylight Box_Top.jpg",
-//     "Daylight Box_Bottom.jpg",
-//     "Daylight Box_Front.jpg",
-//     "Daylight Box_Back.jpg",
-//   ]);
 
+/* Skapar en skybox*/
 let skySphere = new THREE.SphereGeometry(4000, 100, 100);
-
 skySphere.scale(-1, 1, 1);
-
 let skyMaterial = new THREE.MeshBasicMaterial({
   map: loader.load("Bilder/skyimage/CasualDay4K.jpg"),
 });
-
 let Sky = new THREE.Mesh(skySphere, skyMaterial);
-
 scene.add(Sky);
 
-loader.load("Bilder/skyimage/CasualDay4K.jpg", function (texture) {
-  let material = new THREE.MeshBasicMaterial();
-  material.envMap = texture;
-  scene.background = material;
-});
+/* Skapar Height och Width variablar för canvas*/
 
 let height = window.innerHeight * 0.9;
+let width = window.innerWidth;
+if (window.innerWidth > 1000) {
+  width = 1000;
+}
 
-const camera = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / height,
-  0.1,
-  10000
-);
+const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 10000);
 camera.position.set(-230, 40, -20);
 
 const renderer = new THREE.WebGLRenderer({
@@ -90,7 +365,7 @@ const renderer = new THREE.WebGLRenderer({
 });
 
 renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setSize(window.innerWidth, window.innerHeight * 0.9);
+renderer.setSize(width, window.innerHeight * 0.9);
 
 const grass = loader.load("/Bilder/grass.jfif");
 grass.wrapS = THREE.RepeatWrapping;
@@ -104,6 +379,8 @@ field.rotation.x -= Math.PI / 2;
 field.position.set(0, -4, 0);
 scene.add(field);
 console.log(window.innerWidth);
+
+/* Sätter ut 4 ljus källor runt Åva */
 
 const sunLight = new THREE.DirectionalLight("#ffffff", 0.5);
 sunLight.castShadow = true;
@@ -142,72 +419,52 @@ oControls.minPolarAngle = 0;
 oControls.maxPolarAngle = Math.PI * 0.5;
 oControls.target.set(0, 0, -80);
 
+/*  Används för att kunna hitta kordinater för orbitcenter */
+
 // const fControls = new FlyControls(camera, renderer.domElement);
 // fControls.movementSpeed = 30;
 // fControls.rollSpeed = Math.PI / 2;
 // fControls.dragToLook = true;
 
+/* Laddar in 3d byggnad Alla kod som manipulerar 3dmodelen måsta vara innanför load() */
+
 GLTF.load(
   "/3D-modeler/skola.glb",
   function (gltf) {
-    var object = gltf.scene;
+    /* lägger till 3d-modelen till scenen/canvas */
+    let object = gltf.scene;
     scene.add(gltf.scene);
     console.log(gltf.scene);
-    if (true) {
-      // location.reload();
-      let orderedList = [];
-      for (let i = 2; i < object.children.length + 2; i++) {
-        object.children.forEach((element) => {
-          if (element.name[4] == i) {
-            orderedList.push(element);
-          }
-        });
-      }
 
-      object.children.splice(
-        0,
-        6,
-        orderedList[0],
-        orderedList[1],
-        orderedList[2],
-        orderedList[3],
-        orderedList[4],
-        orderedList[5]
-      );
+    /*  Sorterar våningarna eftersom det har slumpmässiga platser i arrayen då det laddas in.*/
+
+    let orderedList = [];
+    for (let i = 2; i < object.children.length + 2; i++) {
+      object.children.forEach((element) => {
+        if (element.name[4] == i) {
+          orderedList.push(element);
+        }
+      });
     }
-    console.log(gltf.scene);
+
+    object.children.splice(
+      0,
+      6,
+      orderedList[0],
+      orderedList[1],
+      orderedList[2],
+      orderedList[3],
+      orderedList[4],
+      orderedList[5]
+    );
+
+    /* Postionerar vånigarna korrekt */
+
     gltf.scene.children[0].position.set(0, 0, 0);
     for (let i = 1; i < 6; i++) {
       gltf.scene.children[i].position.set(0, 0 + 8.5 * i, 0);
     }
 
-    const salar = {
-      2244: { orbitcenter: [-114, 0.5, -98.4], level: 2, side: "Nord" },
-      2247: { orbitcenter: [-98.3, 0.5, -98.4], level: 2, side: "Nord" },
-      2250: { orbitcenter: [-77, 0.5, -98.4], level: 2, side: "Nord" },
-      2248: { orbitcenter: [-55.5, 0.5, -98.4], level: 2, side: "Nord" },
-      2200: { orbitcenter: [-33, 0.5, -94], level: 2, side: "Nord" },
-      2251: { orbitcenter: [-23.3, 0.5, -98.4], level: 2, side: "Nord" },
-      2252: { orbitcenter: [-6.2, 0.5, -98.4], level: 2, side: "Nord" },
-      2254: { orbitcenter: [17, 0.5, -98.4], level: 2, side: "Nord" },
-      2255: { orbitcenter: [36.2, 0.5, -98.4], level: 2, side: "Nord" },
-      2256: { orbitcenter: [50, 0.5, -98.4], level: 2, side: "Nord" },
-      2257: { orbitcenter: [72, 0.5, -98.4], level: 2, side: "Nord" },
-      2258: { orbitcenter: [98.5, 0.5, -98.4], level: 2, side: "Nord" },
-      2260: { orbitcenter: [114.5, 0.5, -102.4], level: 2, side: "Nord" },
-      2266: { orbitcenter: [122.4, 0.5, -98.4], level: 2, side: "Nord" },
-      2270: { orbitcenter: [141, 0.5, -98.4], level: 2, side: "Nord" },
-      2: { orbitcenter: [-5.1, 1, -98.9], level: 2, side: "Nord" },
-      3: { orbitcenter: [-5.1, 9.5, -98.9], level: 3, side: "Nord" },
-      4: { orbitcenter: [-5.1, 17.5, -98.9], level: 4, side: "Nord" },
-      5: { orbitcenter: [-5.1, 25.7, -98.9], level: 5, side: "Nord" },
-      6: { orbitcenter: [-5.1, 34.7, -98.9], level: 6, side: "Nord" },
-    };
-
-    const salLista = Object.keys(salar);
-    salLista.forEach((sal) => {
-      dataList.innerHTML += `<option>${sal}</option>`;
-    });
     const standardCameratarget = new THREE.Vector3(-230, 40, -20);
     const standardOrbittarget = new THREE.Vector3(0, 0, -80);
     let cameraTarget = new THREE.Vector3(0, 30, 30);
@@ -216,6 +473,7 @@ GLTF.load(
     let animationKey = false;
     let plantest = new THREE.Vector3(0, 100, 0);
     let level = 0;
+    let devToggle = false;
     addEventListener("submit", (event) => {
       event.preventDefault();
       let input = document.getElementById("search").value;
@@ -237,6 +495,14 @@ GLTF.load(
 
         animationKey = true;
         oControls.autoRotate = false;
+      } else if (input == "dev") {
+        if (devToggle == true) {
+          infoBoxcontainer.style.display = "none";
+          devToggle = false;
+        } else {
+          infoBoxcontainer.style.display = "block";
+          devToggle = true;
+        }
       } else {
         alert("Salen finns inte!");
       }
@@ -329,15 +595,15 @@ GLTF.load(
   }
 );
 
-const infoBox = document.querySelector("#infoBox");
-const dataList = document.querySelector("#salar");
-
-console.log(infoBox);
+/* uppdatera storlek på canvas då fönstret ändrar storlek*/
 
 function resize() {
-  let factor = 0.9; // percentage of the screen
+  let factor = 0.9;
   let w = window.innerWidth;
   let h = window.innerHeight * factor;
+  if (window.innerWidth > 1000) {
+    w = 1000;
+  }
   renderer.setSize(w, h);
   camera.aspect = w / h;
   camera.updateProjectionMatrix();

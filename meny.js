@@ -9,12 +9,10 @@ function toggleMenu() {
     menu.classList.remove("showMenu");
     closeIcon.style.display = "none";
     menuIcon.style.display = "block";
-    hamburger.style.background = "none";
   } else {
     menu.classList.add("showMenu");
     closeIcon.style.display = "block";
     menuIcon.style.display = "none";
-    hamburger.style.background = "#006590";
   }
 }
 

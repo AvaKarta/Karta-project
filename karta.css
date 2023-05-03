@@ -34,3 +34,42 @@ input:focus-visible {
   color: white;
   font-family: "risbyle2016-bold";
 }
+
+main {
+  background: var(--Åva-dark-blue);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+section {
+  display: none;
+  height: 100%;
+  color: white;
+  font-family: "risbyle2016-bold";
+}
+
+#weather {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 2rem;
+  margin-top: 100px;
+}
+
+#classroom {
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+}
+
+@media screen and (min-width: 1300px) {
+  section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+}
