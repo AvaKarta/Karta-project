@@ -47,6 +47,7 @@ section {
   height: 100%;
   color: white;
   font-family: "risbyle2016-bold";
+  font-size: 2rem;
 }
 
 #weather {
@@ -55,14 +56,15 @@ section {
   justify-content: center;
   align-items: center;
 
-  font-size: 2rem;
   margin-top: 100px;
 }
 
 #classroom {
+  display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 100px;
+  flex-direction: column;
 }
 
 @media screen and (min-width: 1300px) {

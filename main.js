@@ -11,6 +11,8 @@ let date = d.getDay() - 1;
 let minutes = d.getMinutes();
 let hour = d.getHours();
 
+console.log(date, hour, minutes);
+
 /*   Ett objekt med schema för olika klasser  */
 
 const schema = {
@@ -56,7 +58,7 @@ const schema = {
         start: { hour: 14, minute: 10 },
         end: { hour: 15, minute: 35 },
         sal: "3604B",
-        type: "lektion",
+        type: "lastLesson",
       },
     ],
     [
@@ -112,7 +114,7 @@ const schema = {
         start: { hour: 14, minute: 20 },
         end: { hour: 15, minute: 45 },
         sal: 3607,
-        type: "lektion",
+        type: "lastLesson",
       },
     ],
     [
@@ -144,7 +146,7 @@ const schema = {
         start: { hour: 13, minute: 10 },
         end: { hour: 14, minute: 35 },
         sal: 6233,
-        type: "lektion",
+        type: "lastLesson",
       },
     ],
     [
@@ -176,7 +178,7 @@ const schema = {
         start: { hour: 13, minute: 25 },
         end: { hour: 14, minute: 35 },
         sal: 3607,
-        type: "lektion",
+        type: "lastLesson",
       },
     ],
     [
@@ -220,7 +222,7 @@ const schema = {
         start: { hour: 13, minute: 40 },
         end: { hour: 15, minute: 5 },
         sal: "4210",
-        type: "lektion",
+        type: "lastLesson",
       },
     ],
   ],
@@ -272,9 +274,10 @@ function getLektion(klass) {
   let nextSal = "";
   const day = schema[klass][date];
   let free = true;
+  let type = "";
 
   for (let index = 0; index < day.length; index++) {
-    const lektion = day[index];
+    let lektion = day[index];
     if (
       lektion.start.hour * 60 + lektion.start.minute <= hour * 60 + minutes &&
       lektion.end.hour * 60 + lektion.end.minute >= hour * 60 + minutes
@@ -296,12 +299,15 @@ function getLektion(klass) {
   if (free) {
     classroom.innerHTML = "<span>Just nu har du ingen skola</span>";
   } else {
-    if ((type = "rast")) {
-      classroom.innerHTML = `<span>Just nu har du Rast</span>
-      <span>Nästa lektion är i sal  ${nextSal}</span>`;
+    if (type == "rast") {
+      classroom.innerHTML = `<span>Just nu har du Rast.</span>
+      <span>Nästa lektion är i sal  ${nextSal}.</span>`;
+    } else if (type == "lastLesson") {
+      classroom.innerHTML = `<span>Just nu har du lektion i sal ${sal}.</span>
+      <span>Efteråt har du ingen skola.</span>`;
     } else {
-      classroom.innerHTML = `<span>Just nu har du lektion i sal ${sal}</span>
-    <span>Nästa lektion är i sal ${nextSal}</span>`;
+      classroom.innerHTML = `<span>Just nu har du lektion i sal ${sal}.</span>
+    <span>Nästa lektion är i sal ${nextSal}.</span>`;
     }
   }
 }
@@ -353,8 +359,8 @@ scene.add(Sky);
 
 let height = window.innerHeight * 0.9;
 let width = window.innerWidth;
-if (window.innerWidth > 1000) {
-  width = 1000;
+if (window.innerWidth > 1400) {
+  width = 1400;
 }
 
 const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 10000);
@@ -495,6 +501,8 @@ GLTF.load(
 
         animationKey = true;
         oControls.autoRotate = false;
+      } else if (schema.hasOwnProperty(input)) {
+        getLektion(input);
       } else if (input == "dev") {
         if (devToggle == true) {
           infoBoxcontainer.style.display = "none";

@@ -44,3 +44,8 @@ a {
   transition: 0.4s;
   background: rgba(0, 101, 144, 1);
 }
+
+#bg {
+  position: fixed;
+  top: 10vh;
+}

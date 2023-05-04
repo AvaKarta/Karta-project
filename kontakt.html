@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/Bilder/åva.webp" />
+    <link rel="stylesheet" href="common.css" />
+    <link rel="stylesheet" href="kontakt.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ÅVAr</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.138.0/build/three.module.js",
+          "OrbitControls": "https://unpkg.com/three@0.138.0/examples/jsm/controls/OrbitControls.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <ul class="menu">
+      <li><a class="menuItem" href="home.html">Hem</a></li>
+      <li><a class="menuItem" href="manual.html">Manual</a></li>
+      <li><a class="menuItem" href="förord.html">Om sidan</a></li>
+      <li><a class="menuItem" href="skapare.html">Skapare</a></li>
+    </ul>
+    <header>
+      <img
+        id="logo"
+        src="/Bilder/taby-logo-white.svg"
+        alt="En bild på täby logan"
+      />
+      <h2>Åva gymnasium</h2>
+    </header>
+    <button class="hamburger">
+      <!-- material icons https://material.io/resources/icons/ -->
+      <i class="menuIcon fa-solid fa-bars"></i>
+      <i id="closeIcon" class="fa-solid fa-xmark"></i>
+    </button>
+    <main>
+      <form action="">
+        <textarea name="kontakt" id="text" cols="30" rows="10"></textarea>
+        <input id="submit" type="submit" />
+      </form>
+    </main>
+    <script type="module" src="meny.js"></script>
+    <script
+      src="https://kit.fontawesome.com/716e28cc0e.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

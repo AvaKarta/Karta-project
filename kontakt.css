@@ -1,0 +1,19 @@
+form {
+  background-color: var(--Åva-dark-blue);
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+#text {
+  height: 60vh;
+  width: 50vw;
+  font-size: 2vh;
+}
+
+#submit {
+  margin-top: 20px;
+  width: 75px;
+}
