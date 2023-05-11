@@ -23,6 +23,7 @@ const schema = {
         end: { hour: 10, minute: 10 },
         sal: 5246,
         type: "lektion",
+        order: 0,
       },
       {
         start: { hour: 10, minute: 11 },
@@ -35,6 +36,7 @@ const schema = {
         end: { hour: 11, minute: 20 },
         sal: 4209,
         type: "lektion",
+        order: 1,
       },
       {
         start: { hour: 11, minute: 21 },
@@ -47,6 +49,7 @@ const schema = {
         end: { hour: 14, minute: 0 },
         sal: 3536,
         type: "lektion",
+        order: 2,
       },
       {
         start: { hour: 14, minute: 1 },
@@ -59,6 +62,7 @@ const schema = {
         end: { hour: 15, minute: 35 },
         sal: "3604B",
         type: "lastLesson",
+        order: 3,
       },
     ],
     [
@@ -67,54 +71,63 @@ const schema = {
         end: { hour: 9, minute: 50 },
         sal: "3531A",
         type: "lektion",
+        order: 0,
       },
       {
         start: { hour: 9, minute: 51 },
         end: { hour: 9, minute: 59 },
         sal: "none",
         type: "rast",
+        order: 0,
       },
       {
         start: { hour: 10, minute: 0 },
         end: { hour: 11, minute: 15 },
         sal: 3612,
         type: "lektion",
+        order: 1,
       },
       {
         start: { hour: 11, minute: 16 },
         end: { hour: 12, minute: 9 },
         sal: "none",
         type: "lunch",
+        order: 1,
       },
       {
         start: { hour: 12, minute: 10 },
         end: { hour: 13, minute: 30 },
         sal: 4210,
         type: "lektion",
+        order: 2,
       },
       {
         start: { hour: 13, minute: 31 },
         end: { hour: 13, minute: 34 },
         sal: "none",
         type: "rast",
+        order: 2,
       },
       {
         start: { hour: 13, minute: 35 },
         end: { hour: 14, minute: 5 },
         sal: 4210,
         type: "lektion",
+        order: 3,
       },
       {
         start: { hour: 14, minute: 6 },
         end: { hour: 14, minute: 19 },
         sal: "none",
         type: "rast",
+        order: 3,
       },
       {
         start: { hour: 14, minute: 20 },
         end: { hour: 15, minute: 45 },
         sal: 3607,
         type: "lastLesson",
+        order: 4,
       },
     ],
     [
@@ -155,30 +168,35 @@ const schema = {
         end: { hour: 11, minute: 15 },
         sal: 4246,
         type: "lektion",
+        order: 0,
       },
       {
         start: { hour: 11, minute: 16 },
         end: { hour: 11, minute: 24 },
         sal: "none",
         type: "rast",
+        order: 0,
       },
       {
         start: { hour: 11, minute: 25 },
         end: { hour: 12, minute: 35 },
         sal: 5209,
         type: "lektion",
+        order: 1,
       },
       {
         start: { hour: 12, minute: 36 },
         end: { hour: 13, minute: 24 },
         sal: "none",
         type: "lunch",
+        order: 1,
       },
       {
         start: { hour: 13, minute: 25 },
         end: { hour: 14, minute: 35 },
         sal: 3607,
         type: "lastLesson",
+        order: 2,
       },
     ],
     [
@@ -231,21 +249,76 @@ const schema = {
 /* Ett objekt med kordinater för alla klassrum*/
 
 const salar = {
-  2244: { orbitcenter: [-114, 0.5, -98.4], level: 2, side: "Nord" },
+  2207: { orbitcenter: [144.0, 0.5, -68.3], level: 2, side: "Nord" },
+  2208: { orbitcenter: [124.0, 0.5, -68.3], level: 2, side: "Nord" },
+  2209: { orbitcenter: [108.0, 0.5, -68.3], level: 2, side: "Nord" },
+  2244: { orbitcenter: [-114.0, 0.5, -98.4], level: 2, side: "Nord" },
   2247: { orbitcenter: [-98.3, 0.5, -98.4], level: 2, side: "Nord" },
-  2250: { orbitcenter: [-77, 0.5, -98.4], level: 2, side: "Nord" },
-  2248: { orbitcenter: [-55.5, 0.5, -98.4], level: 2, side: "Nord" },
-  2200: { orbitcenter: [-33, 0.5, -94], level: 2, side: "Nord" },
-  2251: { orbitcenter: [-23.3, 0.5, -98.4], level: 2, side: "Nord" },
-  2252: { orbitcenter: [-6.2, 0.5, -98.4], level: 2, side: "Nord" },
-  2254: { orbitcenter: [17, 0.5, -98.4], level: 2, side: "Nord" },
-  2255: { orbitcenter: [36.2, 0.5, -98.4], level: 2, side: "Nord" },
-  2256: { orbitcenter: [50, 0.5, -98.4], level: 2, side: "Nord" },
-  2257: { orbitcenter: [72, 0.5, -98.4], level: 2, side: "Nord" },
-  2258: { orbitcenter: [98.5, 0.5, -98.4], level: 2, side: "Nord" },
-  2260: { orbitcenter: [114.5, 0.5, -102.4], level: 2, side: "Nord" },
-  2266: { orbitcenter: [122.4, 0.5, -98.4], level: 2, side: "Nord" },
+  2250: { orbitcenter: [-85.3, 0.5, -98.4], level: 2, side: "Nord" },
+  2248: { orbitcenter: [-77.0, 0.5, -98.4], level: 2, side: "Nord" },
+  2251: { orbitcenter: [-55.5, 0.5, -98.4], level: 2, side: "Nord" },
+  2252: { orbitcenter: [-33, 0.5, -94], level: 2, side: "Nord" },
+  2254: { orbitcenter: [-23.3, 0.5, -98.4], level: 2, side: "Nord" },
+  2255: { orbitcenter: [-6.2, 0.5, -98.4], level: 2, side: "Nord" },
+  2256: { orbitcenter: [17, 0.5, -98.4], level: 2, side: "Nord" },
+  2257: { orbitcenter: [36.2, 0.5, -98.4], level: 2, side: "Nord" },
+  2258: { orbitcenter: [50, 0.5, -98.4], level: 2, side: "Nord" },
+  2260: { orbitcenter: [72, 0.5, -98.4], level: 2, side: "Nord" },
+  2266: { orbitcenter: [98.5, 0.5, -98.4], level: 2, side: "Nord" },
+  2268: { orbitcenter: [114.5, 0.5, -102.4], level: 2, side: "Nord" },
+  2269: { orbitcenter: [122.4, 0.5, -98.4], level: 2, side: "Nord" },
   2270: { orbitcenter: [141, 0.5, -98.4], level: 2, side: "Nord" },
+  "3531A": { orbitcenter: [-140, 9, 60.0], level: 3, side: "Nord" },
+  "3604B": { orbitcenter: [5.2, 9, 50.0], level: 3, side: "Nord" },
+  3607: { orbitcenter: [-63, 9, 70.0], level: 3, side: "Nord" },
+  3612: { orbitcenter: [5.2, 9, 90.0], level: 3, side: "Nord" },
+  4209: { orbitcenter: [140, 18.1, -68.5], level: 4, side: "Nord" },
+  4210: { orbitcenter: [115, 18.1, -68.5], level: 4, side: "Nord" },
+  4214: { orbitcenter: [64, 18.1, -68.5], level: 4, side: "Nord" },
+  4215: { orbitcenter: [40, 18.1, -68.5], level: 4, side: "Nord" },
+  4216: { orbitcenter: [3, 18.1, -68.5], level: 4, side: "Nord" },
+  4220: { orbitcenter: [-29, 18.1, -68.5], level: 4, side: "Nord" },
+  4221: { orbitcenter: [-54, 18.1, -68.5], level: 4, side: "Nord" },
+  4228: { orbitcenter: [-105, 18.1, -68.5], level: 4, side: "Nord" },
+  4229: { orbitcenter: [-129, 18.1, -68.5], level: 4, side: "Nord" },
+  4237: { orbitcenter: [-130, 18.1, -99.0], level: 4, side: "Nord" },
+  4238: { orbitcenter: [-110, 18.1, -99.0], level: 4, side: "Nord" },
+  4241: { orbitcenter: [-90, 18.1, -99.0], level: 4, side: "Nord" },
+  4242: { orbitcenter: [-65, 18.1, -99.0], level: 4, side: "Nord" },
+  4243: { orbitcenter: [-35, 18.1, -99.0], level: 4, side: "Nord" },
+  4244: { orbitcenter: [-10, 18.1, -99.0], level: 4, side: "Nord" },
+  4246: { orbitcenter: [16, 18.1, -99.0], level: 4, side: "Nord" },
+  4247: { orbitcenter: [43, 18.1, -99.0], level: 4, side: "Nord" },
+  4248: { orbitcenter: [65, 18.1, -99.0], level: 4, side: "Nord" },
+  4249: { orbitcenter: [82, 18.1, -99.0], level: 4, side: "Nord" },
+  4250: { orbitcenter: [98, 18.1, -99.0], level: 4, side: "Nord" },
+  4251: { orbitcenter: [114.4, 18.1, -99.0], level: 4, side: "Nord" },
+  4252: { orbitcenter: [136, 18.1, -99.0], level: 4, side: "Nord" },
+  5209: { orbitcenter: [139, 26, -68.5], level: 5, side: "Nord" },
+  5210: { orbitcenter: [115, 26, -68.5], level: 5, side: "Nord" },
+  5214: { orbitcenter: [63, 26, -68.5], level: 5, side: "Nord" },
+  5215: { orbitcenter: [47, 26, -68.5], level: 5, side: "Nord" },
+  5216: { orbitcenter: [31, 26, -68.5], level: 5, side: "Nord" },
+  5217: { orbitcenter: [9, 26, -68.5], level: 5, side: "Nord" },
+  5218: { orbitcenter: [-14.5, 26, -68.5], level: 5, side: "Nord" },
+  5219: { orbitcenter: [-39, 26, -68.5], level: 5, side: "Nord" },
+  5220: { orbitcenter: [-58, 26, -68.5], level: 5, side: "Nord" },
+  5224: { orbitcenter: [-105, 26, -68.5], level: 5, side: "Nord" },
+  5225: { orbitcenter: [-130, 26, -68.5], level: 5, side: "Nord" },
+  5233: { orbitcenter: [-133, 26, -99.0], level: 5, side: "Nord" },
+  5234: { orbitcenter: [-115, 26, -99.0], level: 5, side: "Nord" },
+  5236: { orbitcenter: [-86, 26, -99.0], level: 5, side: "Nord" },
+  5237: { orbitcenter: [-60, 26, -99.0], level: 5, side: "Nord" },
+  5238: { orbitcenter: [-46, 26, -99.0], level: 5, side: "Nord" },
+  5239: { orbitcenter: [-28, 26, -99.0], level: 5, side: "Nord" },
+  5240: { orbitcenter: [-5, 26, -99.0], level: 5, side: "Nord" },
+  5241: { orbitcenter: [15, 26, -99.0], level: 5, side: "Nord" },
+  5242: { orbitcenter: [34, 26, -99.0], level: 5, side: "Nord" },
+  5243: { orbitcenter: [55, 26, -99.0], level: 5, side: "Nord" },
+  5244: { orbitcenter: [71.5, 26, -99.0], level: 5, side: "Nord" },
+  5245: { orbitcenter: [91.5, 26, -99.0], level: 5, side: "Nord" },
+  5246: { orbitcenter: [117, 26, -99.0], level: 5, side: "Nord" },
+  5247: { orbitcenter: [140, 26, -99.0], level: 5, side: "Nord" },
   2: { orbitcenter: [-5.1, 1, -98.9], level: 2, side: "Nord" },
   3: { orbitcenter: [-5.1, 9.5, -98.9], level: 3, side: "Nord" },
   4: { orbitcenter: [-5.1, 17.5, -98.9], level: 4, side: "Nord" },
@@ -275,6 +348,7 @@ function getLektion(klass) {
   const day = schema[klass][date];
   let free = true;
   let type = "";
+  let order;
 
   for (let index = 0; index < day.length; index++) {
     let lektion = day[index];
@@ -287,11 +361,19 @@ function getLektion(klass) {
         nextSal = day[index + 1].sal;
         free = false;
         type = lektion.type;
+        order = lektion.order;
+      } else if (lektion.type == "lastLesson") {
+        sal = lektion.sal;
+        nextSal = "none";
+        free = false;
+        type = lektion.type;
+        order = lektion.order;
       } else {
         sal = lektion.sal;
         nextSal = day[index + 2].sal;
         free = false;
         type = lektion.type;
+        order = lektion.order;
       }
     }
   }
@@ -302,12 +384,15 @@ function getLektion(klass) {
     if (type == "rast") {
       classroom.innerHTML = `<span>Just nu har du Rast.</span>
       <span>Nästa lektion är i sal  ${nextSal}.</span>`;
+      return [nextSal, order];
     } else if (type == "lastLesson") {
       classroom.innerHTML = `<span>Just nu har du lektion i sal ${sal}.</span>
       <span>Efteråt har du ingen skola.</span>`;
+      return [sal, order];
     } else {
       classroom.innerHTML = `<span>Just nu har du lektion i sal ${sal}.</span>
     <span>Nästa lektion är i sal ${nextSal}.</span>`;
+      return [sal, order];
     }
   }
 }
@@ -317,7 +402,8 @@ function getLektion(klass) {
 const infoBox = document.querySelector("#infoBox");
 const infoBoxcontainer = document.querySelector("#infoBoxcontainer");
 infoBoxcontainer.style.display = "none";
-
+const rightButton = document.querySelector("#right-button");
+const leftButton = document.querySelector("#left-button");
 const apiKey = "ea9430c8ead841e493b132724231602";
 const weatherContainer = document.querySelector("#weather");
 
@@ -335,7 +421,7 @@ async function getWeather(url) {
     json.current.condition.icon
   }" alt="Weather icon" height="${window.innerHeight * 0.1}px">
   <span>${json.current.condition.text}</span>
-  <span>Känns som ${json.current.feelslike_c}°</span>`;
+  <span>Känns  som ${json.current.feelslike_c}°</span>`;
 }
 
 getWeather(api);
@@ -420,14 +506,18 @@ sunLight4.shadow.normalBias = 0.05;
 sunLight4.position.set(-100, 100, -100);
 scene.add(sunLight4);
 
+/* Kontroler för att dra runt en viss punkt */
+
 const oControls = new OrbitControls(camera, renderer.domElement);
 oControls.minPolarAngle = 0;
 oControls.maxPolarAngle = Math.PI * 0.5;
 oControls.target.set(0, 0, -80);
+oControls.maxDistance = 600;
+oControls.minDistance = 20;
 
 /*  Används för att kunna hitta kordinater för orbitcenter */
 
-// const fControls = new FlyControls(camera, renderer.domElement);
+const fControls = new FlyControls(camera, renderer.domElement);
 // fControls.movementSpeed = 30;
 // fControls.rollSpeed = Math.PI / 2;
 // fControls.dragToLook = true;
@@ -473,6 +563,7 @@ GLTF.load(
 
     const standardCameratarget = new THREE.Vector3(-230, 40, -20);
     const standardOrbittarget = new THREE.Vector3(0, 0, -80);
+    const buttons = document.querySelector(".buttons");
     let cameraTarget = new THREE.Vector3(0, 30, 30);
     let orbitTarget = new THREE.Vector3();
     let cameraKey = false;
@@ -480,29 +571,121 @@ GLTF.load(
     let plantest = new THREE.Vector3(0, 100, 0);
     let level = 0;
     let devToggle = false;
+    let input = "";
+    let count = 0;
+    let lesson = "";
+    let tempInput = "";
+    let result = "";
+
+    // let sortedLessons = [];
+
+    rightButton.addEventListener("click", (event) => {
+      let lessons = schema[input][date];
+      let sortedLessons = [];
+      lessons.forEach((element) => {
+        if (element.type == "lektion" || element.type == "lastLesson") {
+          sortedLessons.push(element);
+        }
+      });
+      console.log(sortedLessons);
+      console.log(count);
+      console.log(tempInput);
+      console.log(result[1]);
+      let checkCount = count;
+      if (sortedLessons[result[1] + count + 1] == undefined) {
+        count = checkCount;
+      } else {
+        console.log(sortedLessons[result[1] + count]);
+        count += 1;
+      }
+
+      lesson = sortedLessons[result[1] + count].sal;
+      console.log(lesson);
+      console.log(salar[lesson].level);
+
+      level = salar[lesson].level;
+      cameraTarget.set(
+        salar[lesson].orbitcenter[0],
+        salar[lesson].orbitcenter[1] + 30,
+        salar[lesson].orbitcenter[2] + 30
+      );
+      orbitTarget.set(
+        salar[lesson].orbitcenter[0],
+        salar[lesson].orbitcenter[1],
+        salar[lesson].orbitcenter[2]
+      );
+
+      animationKey = true;
+      oControls.autoRotate = false;
+    });
+
+    leftButton.addEventListener("click", (event) => {
+      let lessons = schema[input][date];
+      let sortedLessons = [];
+      lessons.forEach((element) => {
+        if (element.type == "lektion" || element.type == "lastLesson") {
+          sortedLessons.push(element);
+        }
+      });
+      console.log(sortedLessons);
+      console.log(count);
+      console.log(tempInput);
+      console.log(result[1]);
+      let checkCount = count;
+      if (sortedLessons[result[1] - count - 1] == undefined) {
+        count = checkCount;
+      } else {
+        console.log(sortedLessons[result[1] + count]);
+        count -= 1;
+      }
+
+      lesson = sortedLessons[result[1] + count].sal;
+      console.log(lesson);
+      console.log(salar[lesson].level);
+
+      level = salar[lesson].level;
+      cameraTarget.set(
+        salar[lesson].orbitcenter[0],
+        salar[lesson].orbitcenter[1] + 30,
+        salar[lesson].orbitcenter[2] + 30
+      );
+      orbitTarget.set(
+        salar[lesson].orbitcenter[0],
+        salar[lesson].orbitcenter[1],
+        salar[lesson].orbitcenter[2]
+      );
+
+      animationKey = true;
+      oControls.autoRotate = false;
+    });
+
     addEventListener("submit", (event) => {
       event.preventDefault();
-      let input = document.getElementById("search").value;
-      if (salar.hasOwnProperty(input)) {
-        console.log(input);
-        console.log(salar[input].level);
+      input = document.getElementById("search").value;
+      tempInput = input;
+      if (schema.hasOwnProperty(input)) {
+        result = getLektion(input);
+        tempInput = result[0];
+        buttons.style = "block";
+      }
+      if (salar.hasOwnProperty(input) || schema.hasOwnProperty(input)) {
+        console.log(tempInput);
+        console.log(salar[tempInput].level);
 
-        level = salar[input].level;
+        level = salar[tempInput].level;
         cameraTarget.set(
-          salar[input].orbitcenter[0],
-          salar[input].orbitcenter[1] + 30,
-          salar[input].orbitcenter[2] + 30
+          salar[tempInput].orbitcenter[0],
+          salar[tempInput].orbitcenter[1] + 30,
+          salar[tempInput].orbitcenter[2] + 30
         );
         orbitTarget.set(
-          salar[input].orbitcenter[0],
-          salar[input].orbitcenter[1],
-          salar[input].orbitcenter[2]
+          salar[tempInput].orbitcenter[0],
+          salar[tempInput].orbitcenter[1],
+          salar[tempInput].orbitcenter[2]
         );
 
         animationKey = true;
         oControls.autoRotate = false;
-      } else if (schema.hasOwnProperty(input)) {
-        getLektion(input);
       } else if (input == "dev") {
         if (devToggle == true) {
           infoBoxcontainer.style.display = "none";
@@ -545,7 +728,7 @@ GLTF.load(
           // oControls.autoRotate = true;
         } else {
           let newLevel = level - 1;
-          console.log(object.children[newLevel].position);
+          // console.log(object.children[newLevel].position);
           if (
             object.children[newLevel].position.y.toFixed(1) ==
               150 + 8.5 * (level - 1) &&

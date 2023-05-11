@@ -40,6 +40,7 @@ main {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  position: relative;
 }
 
 section {
@@ -74,4 +75,27 @@ section {
     align-items: center;
     flex-direction: column;
   }
+}
+
+#right-button {
+  right: 40px;
+}
+
+#left-button {
+  left: 40px;
+}
+
+.buttons {
+  position: absolute;
+  z-index: 500;
+  height: 60px;
+  width: 25px;
+  top: calc(50% - 30px);
+  display: none;
+}
+
+#canvas-container {
+  position: relative;
+  max-height: 90vh;
+  overflow: hidden;
 }
