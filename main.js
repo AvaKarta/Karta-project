@@ -280,6 +280,7 @@ const salar = {
   2268: { orbitcenter: [114.5, 0.5, -102.4], level: 2, side: "Nord" },
   2269: { orbitcenter: [122.4, 0.5, -98.4], level: 2, side: "Nord" },
   2270: { orbitcenter: [141, 0.5, -98.4], level: 2, side: "Nord" },
+  3403: { orbitcenter: [-130, 9, 10.0], level: 3, side: "Nord" },
   "3531A": { orbitcenter: [-130, 9, 55.0], level: 3, side: "Nord" },
   3536: { orbitcenter: [-130, 9, 95.0], level: 3, side: "Nord" },
   "3604B": { orbitcenter: [5.2, 9, 50.0], level: 3, side: "Nord" },
@@ -332,6 +333,7 @@ const salar = {
   5245: { orbitcenter: [91.5, 26, -99.0], level: 5, side: "Nord" },
   5246: { orbitcenter: [117, 26, -99.0], level: 5, side: "Nord" },
   5247: { orbitcenter: [140, 26, -99.0], level: 5, side: "Nord" },
+  6234: { orbitcenter: [-130, 34, -68.5], level: 6, side: "Nord" },
   2: { orbitcenter: [-5.1, 1, -98.9], level: 2, side: "Nord" },
   3: { orbitcenter: [-5.1, 9.5, -98.9], level: 3, side: "Nord" },
   4: { orbitcenter: [-5.1, 17.5, -98.9], level: 4, side: "Nord" },
@@ -576,7 +578,7 @@ GLTF.load(
 
     const standardCameratarget = new THREE.Vector3(-230, 40, -20);
     const standardOrbittarget = new THREE.Vector3(0, 0, -80);
-    const buttons = document.querySelector(".buttons");
+    const buttons = document.querySelectorAll(".buttons");
     let cameraTarget = new THREE.Vector3(0, 30, 30);
     let orbitTarget = new THREE.Vector3();
     let cameraKey = false;
@@ -679,11 +681,13 @@ GLTF.load(
       if (schema.hasOwnProperty(input)) {
         result = getLektion(input);
         tempInput = result[0];
-        buttons.style = "block";
+        buttons.forEach((element) => {
+          element.style.display = "block";
+        });
       }
       if (salar.hasOwnProperty(input) || schema.hasOwnProperty(input)) {
-        console.log(tempInput);
-        console.log(salar[tempInput].level);
+        // console.log(tempInput);
+        // console.log(salar[tempInput].level);
 
         level = salar[tempInput].level;
         cameraTarget.set(
