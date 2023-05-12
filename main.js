@@ -489,37 +489,24 @@ console.log(window.innerWidth);
 
 /* Sätter ut 4 ljus källor runt Åva */
 
-const sunLight = new THREE.DirectionalLight("#ffffff", 0.5);
-sunLight.castShadow = true;
-sunLight.shadow.camera.far = 20;
-sunLight.shadow.mapSize.set(1024, 1024);
-sunLight.shadow.normalBias = 0.05;
-sunLight.position.set(100, 100, -100);
-scene.add(sunLight);
+const lightCordinates = [
+  new THREE.Vector3(100, 100, -100),
+  new THREE.Vector3(100, 100, 100),
+  new THREE.Vector3(-100, 100, 100),
+  new THREE.Vector3(-100, 100, -100),
+];
 
-const sunLight2 = new THREE.DirectionalLight("#ffffff", 0.5);
-sunLight2.castShadow = true;
-sunLight2.shadow.camera.far = 20;
-sunLight2.shadow.mapSize.set(1024, 1024);
-sunLight2.shadow.normalBias = 0.05;
-sunLight2.position.set(100, 100, 100);
-scene.add(sunLight2);
-
-const sunLight3 = new THREE.DirectionalLight("#ffffff", 0.5);
-sunLight3.castShadow = true;
-sunLight3.shadow.camera.far = 20;
-sunLight3.shadow.mapSize.set(1024, 1024);
-sunLight3.shadow.normalBias = 0.05;
-sunLight3.position.set(-100, 100, 100);
-scene.add(sunLight3);
-
-const sunLight4 = new THREE.DirectionalLight("#ffffff", 0.5);
-sunLight4.castShadow = true;
-sunLight4.shadow.camera.far = 20;
-sunLight4.shadow.mapSize.set(1024, 1024);
-sunLight4.shadow.normalBias = 0.05;
-sunLight4.position.set(-100, 100, -100);
-scene.add(sunLight4);
+for (let index = 0; index < lightCordinates.length; index++) {
+  let lightCordinate = lightCordinates[index];
+  console.log(lightCordinate);
+  let sunLight = new THREE.DirectionalLight("#ffffff", 0.5);
+  sunLight.castShadow = true;
+  sunLight.shadow.camera.far = 20;
+  sunLight.shadow.mapSize.set(1024, 1024);
+  sunLight.shadow.normalBias = 0.05;
+  sunLight.position.set(lightCordinate.x, lightCordinate.y, lightCordinate.z);
+  scene.add(sunLight);
+}
 
 /* Kontroler för att dra runt en viss punkt */
 
@@ -683,6 +670,10 @@ GLTF.load(
         tempInput = result[0];
         buttons.forEach((element) => {
           element.style.display = "block";
+        });
+      } else {
+        buttons.forEach((element) => {
+          element.style.display = "none";
         });
       }
       if (salar.hasOwnProperty(input) || schema.hasOwnProperty(input)) {
