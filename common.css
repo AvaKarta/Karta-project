@@ -133,10 +133,17 @@ main {
   height: 90vh;
   width: 100vw;
   margin-top: 10vh;
-  color: black;
+  color: #333333;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+article {
+  margin-top: 50px;
+  background: white;
+  border-top: solid var(--Åva-blue) 5px;
+  width: 80vw;
 }
 
 h1 {

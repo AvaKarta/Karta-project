@@ -68,15 +68,6 @@ section {
   flex-direction: column;
 }
 
-@media screen and (min-width: 1300px) {
-  section {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  }
-}
-
 #right-button {
   right: 40px;
 }
@@ -98,4 +89,13 @@ section {
   position: relative;
   max-height: 90vh;
   overflow: hidden;
+}
+
+@media screen and (min-width: 1300px) {
+  section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
 }

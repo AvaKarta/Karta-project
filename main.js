@@ -423,15 +423,19 @@ const api =
 /* kollar upp vädret vid åva och skriver ut det i section*/
 
 async function getWeather(url) {
-  let response = await fetch(url);
-  // Detta gör om resultatet från APIet till ett JSON-objekt.
-  let json = await response.json();
-  console.log(json);
-  weatherContainer.innerHTML = `<img id="weather-icon" src="${
-    json.current.condition.icon
-  }" alt="Weather icon" height="${window.innerHeight * 0.1}px">
-  <span>${json.current.condition.text}</span>
-  <span>Känns  som ${json.current.feelslike_c}°</span>`;
+  try {
+    let response = await fetch(url);
+    // Detta gör om resultatet från APIet till ett JSON-objekt.
+    let json = await response.json();
+    console.log(json);
+    weatherContainer.innerHTML = `<img id="weather-icon" src="${
+      json.current.condition.icon
+    }" alt="Weather icon" height="${window.innerHeight * 0.1}px">
+    <span>${json.current.condition.text}</span>
+    <span>Känns  som ${json.current.feelslike_c}°</span>`;
+  } catch (error) {
+    weatherContainer.innerHTML = `<span>Kunde inte hitta väder data.</span>`;
+  }
 }
 
 getWeather(api);
@@ -466,7 +470,7 @@ const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector("#bg"),
 });
 
-if (window.innerWidth > 1900) {
+if (window.innerWidth > 2000) {
   renderer.setPixelRatio(window.devicePixelRatio * 0.5);
 } else {
   renderer.setPixelRatio(window.devicePixelRatio);
