@@ -334,11 +334,6 @@ const salar = {
   5246: { orbitcenter: [117, 26, -99.0], level: 5, side: "Nord" },
   5247: { orbitcenter: [140, 26, -99.0], level: 5, side: "Nord" },
   6234: { orbitcenter: [-130, 34, -68.5], level: 6, side: "Nord" },
-  2: { orbitcenter: [-5.1, 1, -98.9], level: 2, side: "Nord" },
-  3: { orbitcenter: [-5.1, 9.5, -98.9], level: 3, side: "Nord" },
-  4: { orbitcenter: [-5.1, 17.5, -98.9], level: 4, side: "Nord" },
-  5: { orbitcenter: [-5.1, 25.7, -98.9], level: 5, side: "Nord" },
-  6: { orbitcenter: [-5.1, 34.7, -98.9], level: 6, side: "Nord" },
 };
 
 const classroom = document.querySelector("#classroom");
@@ -471,7 +466,12 @@ const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector("#bg"),
 });
 
-renderer.setPixelRatio(window.devicePixelRatio);
+if (window.innerWidth > 1900) {
+  renderer.setPixelRatio(window.devicePixelRatio * 0.5);
+} else {
+  renderer.setPixelRatio(window.devicePixelRatio);
+}
+
 renderer.setSize(width, window.innerHeight * 0.9);
 
 const grass = loader.load("/Bilder/grass.jfif");
