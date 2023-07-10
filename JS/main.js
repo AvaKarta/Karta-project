@@ -30,6 +30,7 @@ const schema = {
         end: { hour: 10, minute: 19 },
         sal: "none",
         type: "rast",
+        order: 1,
       },
       {
         start: { hour: 10, minute: 20 },
@@ -43,6 +44,7 @@ const schema = {
         end: { hour: 12, minute: 44 },
         sal: "none",
         type: "lunch",
+        order: 2,
       },
       {
         start: { hour: 12, minute: 45 },
@@ -56,6 +58,7 @@ const schema = {
         end: { hour: 14, minute: 9 },
         sal: "none",
         type: "rast",
+        order: 3,
       },
       {
         start: { hour: 14, minute: 10 },
@@ -391,7 +394,7 @@ function getLektion(klass) {
   if (free) {
     classroom.innerHTML = "<span>Just nu har du ingen skola</span>";
   } else {
-    if (type == "rast") {
+    if (type == "rast" || type == "lunch") {
       classroom.innerHTML = `<span>Just nu har du Rast.</span>
       <span>Nästa lektion är i sal  ${nextSal}.</span>`;
       return [nextSal, order];
@@ -638,8 +641,10 @@ GLTF.load(
       console.log(tempInput);
       console.log(result[1]);
       let checkCount = count;
-      if (sortedLessons[result[1] - count - 1] == undefined) {
+      console.log(sortedLessons[result[1] - count - 1]);
+      if (result[1] + count - 1 < 0) {
         count = checkCount;
+        console.log(count);
       } else {
         console.log(sortedLessons[result[1] + count]);
         count -= 1;
@@ -671,6 +676,7 @@ GLTF.load(
       tempInput = input;
       if (schema.hasOwnProperty(input)) {
         result = getLektion(input);
+        console.log(result);
         tempInput = result[0];
         buttons.forEach((element) => {
           element.style.display = "block";
