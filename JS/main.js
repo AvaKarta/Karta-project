@@ -7,256 +7,273 @@ import { FlyControls } from "https://unpkg.com/three@0.138.0/examples/jsm/contro
 /* skapar tids variablar */
 
 const d = new Date();
-let date = d.getDay() - 1;
+let weekDay = d.getDay() - 1;
+
+let monthday = d.getDate();
+let month = d.getMonth() + 1;
+let startDate = new Date(d.getFullYear(), 0, 1);
 let minutes = d.getMinutes();
 let hour = d.getHours();
-
-console.log(date, hour, minutes);
+hour = 12;
+let week = Math.ceil(Math.floor((d - startDate) / (24 * 60 * 60 * 1000)) / 7);
+week = 0;
+console.log(week, weekDay, hour, minutes);
+let weekdays = [
+  "Måndag",
+  "Tisdag",
+  "Onsdag",
+  "Torsdag",
+  "Fredag",
+  "Lördag",
+  "Söndag",
+];
 
 /*   Ett objekt med schema för olika klasser  */
 
 const schema = {
   te21d: [
     [
-      {
-        start: { hour: 8, minute: 55 },
-        end: { hour: 10, minute: 10 },
-        sal: 5246,
-        type: "lektion",
-        order: 0,
-      },
-      {
-        start: { hour: 10, minute: 11 },
-        end: { hour: 10, minute: 19 },
-        sal: "none",
-        type: "rast",
-        order: 1,
-      },
-      {
-        start: { hour: 10, minute: 20 },
-        end: { hour: 11, minute: 20 },
-        sal: 4209,
-        type: "lektion",
-        order: 1,
-      },
-      {
-        start: { hour: 11, minute: 21 },
-        end: { hour: 12, minute: 44 },
-        sal: "none",
-        type: "lunch",
-        order: 2,
-      },
-      {
-        start: { hour: 12, minute: 45 },
-        end: { hour: 14, minute: 0 },
-        sal: 3536,
-        type: "lektion",
-        order: 2,
-      },
-      {
-        start: { hour: 14, minute: 1 },
-        end: { hour: 14, minute: 9 },
-        sal: "none",
-        type: "rast",
-        order: 3,
-      },
-      {
-        start: { hour: 14, minute: 10 },
-        end: { hour: 15, minute: 35 },
-        sal: "3604B",
-        type: "lastLesson",
-        order: 3,
-      },
-    ],
-    [
-      {
-        start: { hour: 8, minute: 20 },
-        end: { hour: 9, minute: 50 },
-        sal: "3531A",
-        type: "lektion",
-        order: 0,
-      },
-      {
-        start: { hour: 9, minute: 51 },
-        end: { hour: 9, minute: 59 },
-        sal: "none",
-        type: "rast",
-        order: 0,
-      },
-      {
-        start: { hour: 10, minute: 0 },
-        end: { hour: 11, minute: 15 },
-        sal: 3612,
-        type: "lektion",
-        order: 1,
-      },
-      {
-        start: { hour: 11, minute: 16 },
-        end: { hour: 12, minute: 9 },
-        sal: "none",
-        type: "lunch",
-        order: 1,
-      },
-      {
-        start: { hour: 12, minute: 10 },
-        end: { hour: 13, minute: 30 },
-        sal: 4210,
-        type: "lektion",
-        order: 2,
-      },
-      {
-        start: { hour: 13, minute: 31 },
-        end: { hour: 13, minute: 34 },
-        sal: "none",
-        type: "rast",
-        order: 2,
-      },
-      {
-        start: { hour: 13, minute: 35 },
-        end: { hour: 14, minute: 5 },
-        sal: 4210,
-        type: "lektion",
-        order: 3,
-      },
-      {
-        start: { hour: 14, minute: 6 },
-        end: { hour: 14, minute: 19 },
-        sal: "none",
-        type: "rast",
-        order: 3,
-      },
-      {
-        start: { hour: 14, minute: 20 },
-        end: { hour: 15, minute: 45 },
-        sal: 3607,
-        type: "lastLesson",
-        order: 4,
-      },
-    ],
-    [
-      {
-        start: { hour: 9, minute: 35 },
-        end: { hour: 10, minute: 50 },
-        sal: 3607,
-        type: "lektion",
-        order: 0,
-      },
-      {
-        start: { hour: 10, minute: 56 },
-        end: { hour: 11, minute: 4 },
-        sal: "none",
-        type: "rast",
-        order: 0,
-      },
-      {
-        start: { hour: 11, minute: 5 },
-        end: { hour: 12, minute: 15 },
-        sal: "3531A",
-        type: "lektion",
-        order: 1,
-      },
-      {
-        start: { hour: 12, minute: 16 },
-        end: { hour: 13, minute: 9 },
-        sal: "none",
-        type: "lunch",
-        order: 1,
-      },
-      {
-        start: { hour: 13, minute: 10 },
-        end: { hour: 14, minute: 35 },
-        sal: 6233,
-        type: "lastLesson",
-        order: 2,
-      },
-    ],
-    [
-      {
-        start: { hour: 10, minute: 0 },
-        end: { hour: 11, minute: 15 },
-        sal: 4246,
-        type: "lektion",
-        order: 0,
-      },
-      {
-        start: { hour: 11, minute: 16 },
-        end: { hour: 11, minute: 24 },
-        sal: "none",
-        type: "rast",
-        order: 0,
-      },
-      {
-        start: { hour: 11, minute: 25 },
-        end: { hour: 12, minute: 35 },
-        sal: 5209,
-        type: "lektion",
-        order: 1,
-      },
-      {
-        start: { hour: 12, minute: 36 },
-        end: { hour: 13, minute: 24 },
-        sal: "none",
-        type: "lunch",
-        order: 1,
-      },
-      {
-        start: { hour: 13, minute: 25 },
-        end: { hour: 14, minute: 35 },
-        sal: 3607,
-        type: "lastLesson",
-        order: 2,
-      },
-    ],
-    [
-      {
-        start: { hour: 8, minute: 40 },
-        end: { hour: 9, minute: 50 },
-        sal: 3536,
-        type: "lektion",
-        order: 0,
-      },
-      {
-        start: { hour: 9, minute: 51 },
-        end: { hour: 9, minute: 59 },
-        sal: "none",
-        type: "rast",
-        order: 0,
-      },
-      {
-        start: { hour: 10, minute: 0 },
-        end: { hour: 11, minute: 15 },
-        sal: 6234,
-        type: "lektion",
-        order: 1,
-      },
-      {
-        start: { hour: 11, minute: 16 },
-        end: { hour: 12, minute: 4 },
-        sal: "none",
-        type: "lunch",
-        order: 1,
-      },
-      {
-        start: { hour: 12, minute: 5 },
-        end: { hour: 13, minute: 30 },
-        sal: 3403,
-        type: "lektion",
-        order: 2,
-      },
-      {
-        start: { hour: 13, minute: 31 },
-        end: { hour: 13, minute: 39 },
-        sal: "none",
-        type: "rast",
-        order: 2,
-      },
-      {
-        start: { hour: 13, minute: 40 },
-        end: { hour: 15, minute: 5 },
-        sal: "4210",
-        type: "lastLesson",
-        order: 3,
-      },
+      [
+        {
+          start: { hour: 8, minute: 55 },
+          end: { hour: 10, minute: 10 },
+          sal: 5246,
+          type: "lektion",
+          order: 0,
+        },
+        {
+          start: { hour: 10, minute: 11 },
+          end: { hour: 10, minute: 19 },
+          sal: "none",
+          type: "rast",
+          order: 1,
+        },
+        {
+          start: { hour: 10, minute: 20 },
+          end: { hour: 11, minute: 20 },
+          sal: 4209,
+          type: "lektion",
+          order: 1,
+        },
+        {
+          start: { hour: 11, minute: 21 },
+          end: { hour: 12, minute: 44 },
+          sal: "none",
+          type: "lunch",
+          order: 2,
+        },
+        {
+          start: { hour: 12, minute: 45 },
+          end: { hour: 14, minute: 0 },
+          sal: 3536,
+          type: "lektion",
+          order: 2,
+        },
+        {
+          start: { hour: 14, minute: 1 },
+          end: { hour: 14, minute: 9 },
+          sal: "none",
+          type: "rast",
+          order: 3,
+        },
+        {
+          start: { hour: 14, minute: 10 },
+          end: { hour: 15, minute: 35 },
+          sal: "3604B",
+          type: "lastLesson",
+          order: 3,
+        },
+      ],
+      [
+        {
+          start: { hour: 8, minute: 20 },
+          end: { hour: 9, minute: 50 },
+          sal: "3531A",
+          type: "lektion",
+          order: 0,
+        },
+        {
+          start: { hour: 9, minute: 51 },
+          end: { hour: 9, minute: 59 },
+          sal: "none",
+          type: "rast",
+          order: 0,
+        },
+        {
+          start: { hour: 10, minute: 0 },
+          end: { hour: 11, minute: 15 },
+          sal: 3612,
+          type: "lektion",
+          order: 1,
+        },
+        {
+          start: { hour: 11, minute: 16 },
+          end: { hour: 12, minute: 9 },
+          sal: "none",
+          type: "lunch",
+          order: 1,
+        },
+        {
+          start: { hour: 12, minute: 10 },
+          end: { hour: 13, minute: 30 },
+          sal: 4210,
+          type: "lektion",
+          order: 2,
+        },
+        {
+          start: { hour: 13, minute: 31 },
+          end: { hour: 13, minute: 34 },
+          sal: "none",
+          type: "rast",
+          order: 2,
+        },
+        {
+          start: { hour: 13, minute: 35 },
+          end: { hour: 14, minute: 5 },
+          sal: 4210,
+          type: "lektion",
+          order: 3,
+        },
+        {
+          start: { hour: 14, minute: 6 },
+          end: { hour: 14, minute: 19 },
+          sal: "none",
+          type: "rast",
+          order: 3,
+        },
+        {
+          start: { hour: 14, minute: 20 },
+          end: { hour: 15, minute: 45 },
+          sal: 3607,
+          type: "lastLesson",
+          order: 4,
+        },
+      ],
+      [
+        {
+          start: { hour: 9, minute: 35 },
+          end: { hour: 10, minute: 50 },
+          sal: 3607,
+          type: "lektion",
+          order: 0,
+        },
+        {
+          start: { hour: 10, minute: 56 },
+          end: { hour: 11, minute: 4 },
+          sal: "none",
+          type: "rast",
+          order: 0,
+        },
+        {
+          start: { hour: 11, minute: 5 },
+          end: { hour: 12, minute: 15 },
+          sal: "3531A",
+          type: "lektion",
+          order: 1,
+        },
+        {
+          start: { hour: 12, minute: 16 },
+          end: { hour: 13, minute: 9 },
+          sal: "none",
+          type: "lunch",
+          order: 1,
+        },
+        {
+          start: { hour: 13, minute: 10 },
+          end: { hour: 14, minute: 35 },
+          sal: 6233,
+          type: "lastLesson",
+          order: 2,
+        },
+      ],
+      [
+        {
+          start: { hour: 10, minute: 0 },
+          end: { hour: 11, minute: 15 },
+          sal: 4246,
+          type: "lektion",
+          order: 0,
+        },
+        {
+          start: { hour: 11, minute: 16 },
+          end: { hour: 11, minute: 24 },
+          sal: "none",
+          type: "rast",
+          order: 0,
+        },
+        {
+          start: { hour: 11, minute: 25 },
+          end: { hour: 12, minute: 35 },
+          sal: 5209,
+          type: "lektion",
+          order: 1,
+        },
+        {
+          start: { hour: 12, minute: 36 },
+          end: { hour: 13, minute: 24 },
+          sal: "none",
+          type: "lunch",
+          order: 1,
+        },
+        {
+          start: { hour: 13, minute: 25 },
+          end: { hour: 14, minute: 35 },
+          sal: 3607,
+          type: "lastLesson",
+          order: 2,
+        },
+      ],
+      [
+        {
+          start: { hour: 8, minute: 40 },
+          end: { hour: 9, minute: 50 },
+          sal: 3536,
+          type: "lektion",
+          order: 0,
+        },
+        {
+          start: { hour: 9, minute: 51 },
+          end: { hour: 9, minute: 59 },
+          sal: "none",
+          type: "rast",
+          order: 0,
+        },
+        {
+          start: { hour: 10, minute: 0 },
+          end: { hour: 11, minute: 15 },
+          sal: 6234,
+          type: "lektion",
+          order: 1,
+        },
+        {
+          start: { hour: 11, minute: 16 },
+          end: { hour: 12, minute: 4 },
+          sal: "none",
+          type: "lunch",
+          order: 1,
+        },
+        {
+          start: { hour: 12, minute: 5 },
+          end: { hour: 13, minute: 30 },
+          sal: 3403,
+          type: "lektion",
+          order: 2,
+        },
+        {
+          start: { hour: 13, minute: 31 },
+          end: { hour: 13, minute: 39 },
+          sal: "none",
+          type: "rast",
+          order: 2,
+        },
+        {
+          start: { hour: 13, minute: 40 },
+          end: { hour: 15, minute: 5 },
+          sal: "4210",
+          type: "lastLesson",
+          order: 3,
+        },
+      ],
     ],
   ],
 };
@@ -336,10 +353,30 @@ const salar = {
   5245: { orbitcenter: [91.5, 26, -99.0], level: 5, side: "Nord" },
   5246: { orbitcenter: [117, 26, -99.0], level: 5, side: "Nord" },
   5247: { orbitcenter: [140, 26, -99.0], level: 5, side: "Nord" },
+  6212: { orbitcenter: [123, 34, -68.5], level: 6, side: "Nord" },
+  6214: { orbitcenter: [66, 34, -68.5], level: 6, side: "Nord" },
+  6215: { orbitcenter: [50, 34, -68.5], level: 6, side: "Nord" },
+  6216: { orbitcenter: [38, 34, -68.5], level: 6, side: "Nord" },
+  6218: { orbitcenter: [28.5, 34, -64], level: 6, side: "Nord" },
+  6218: { orbitcenter: [28.5, 34, -64], level: 6, side: "Nord" },
+  6219: { orbitcenter: [21, 34, -64], level: 6, side: "Nord" },
+  6220: { orbitcenter: [14, 34, -64], level: 6, side: "Nord" },
+  6221: { orbitcenter: [6.5, 34, -64], level: 6, side: "Nord" },
+  6222: { orbitcenter: [0, 34, -64], level: 6, side: "Nord" },
+  6223: { orbitcenter: [-9, 34, -68.5], level: 6, side: "Nord" },
+  6224: { orbitcenter: [-18.5, 34, -64], level: 6, side: "Nord" },
+  6226: { orbitcenter: [-30, 34, -64], level: 6, side: "Nord" },
+  6227: { orbitcenter: [-32.2, 34, -73.5], level: 6, side: "Nord" },
+  6228: { orbitcenter: [-50, 34, -68.5], level: 6, side: "Nord" },
+  6233: { orbitcenter: [-106, 34, -68.5], level: 6, side: "Nord" },
   6234: { orbitcenter: [-130, 34, -68.5], level: 6, side: "Nord" },
+  6242: { orbitcenter: [-135, 34, -99], level: 6, side: "Nord" },
+  6266: { orbitcenter: [129, 34, -99], level: 6, side: "Nord" },
+  6262: { orbitcenter: [93, 34, -99], level: 6, side: "Nord" },
 };
 
 const classroom = document.querySelector("#classroom");
+const dateInformation = document.querySelector("#date-information");
 const dataList = document.querySelector("#salar");
 
 /* Lägger till sökbara termer till sök input */
@@ -358,7 +395,7 @@ salLista.forEach((sal) => {
 function getLektion(klass) {
   let sal = "";
   let nextSal = "";
-  const day = schema[klass][date];
+  const day = schema[klass][week][weekDay];
   let free = true;
   let type = "";
   let order;
@@ -395,14 +432,24 @@ function getLektion(klass) {
     classroom.innerHTML = "<span>Just nu har du ingen skola</span>";
   } else {
     if (type == "rast" || type == "lunch") {
-      classroom.innerHTML = `<span>Just nu har du Rast.</span>
+      dateInformation.innerHTML = `<span id="week">Vecka ${week}</span>
+      <span id="weekday">${weekdays[weekDay]}</span>
+      <span id="date" style="margin-bottom:25px;">${monthday}/${month}</span>`;
+      classroom.innerHTML = `
+      <span>Just nu har du Rast.</span>
       <span>Nästa lektion är i sal  ${nextSal}.</span>`;
       return [nextSal, order];
     } else if (type == "lastLesson") {
+      dateInformation.innerHTML = `<span id="week">Vecka ${week}</span>
+    <span id="weekday">${weekdays[weekDay]}</span>
+    <span id="date" style="margin-bottom:25px;">${monthday}/${month}</span>`;
       classroom.innerHTML = `<span>Just nu har du lektion i sal ${sal}.</span>
       <span>Efteråt har du ingen skola.</span>`;
       return [sal, order];
     } else {
+      dateInformation.innerHTML = `<span id="week">Vecka ${week}</span>
+      <span id="weekday">${weekdays[weekDay]}</span>
+      <span id="date" style="margin-bottom:25px;">${monthday}/${month}</span>`;
       classroom.innerHTML = `<span>Just nu har du lektion i sal ${sal}.</span>
     <span>Nästa lektion är i sal ${nextSal}.</span>`;
       return [sal, order];
@@ -417,6 +464,8 @@ const infoBoxcontainer = document.querySelector("#infoBoxcontainer");
 infoBoxcontainer.style.display = "none";
 const rightButton = document.querySelector("#right-button");
 const leftButton = document.querySelector("#left-button");
+const rightCalendarbutton = document.querySelector("#right-calendar-button");
+const leftCalendarbutton = document.querySelector("#left-calendar-button");
 const apiKey = "ea9430c8ead841e493b132724231602";
 const weatherContainer = document.querySelector("#weather");
 
@@ -486,13 +535,13 @@ grass.wrapS = THREE.RepeatWrapping;
 grass.wrapT = THREE.RepeatWrapping;
 grass.repeat.set(64, 64);
 
-const fieldPlane = new THREE.PlaneGeometry(10000, 10000);
-const fieldTexture = new THREE.MeshStandardMaterial({ map: grass });
-const field = new THREE.Mesh(fieldPlane, fieldTexture);
-field.rotation.x -= Math.PI / 2;
-field.position.set(0, -4, 0);
-scene.add(field);
-console.log(window.innerWidth);
+// const fieldPlane = new THREE.PlaneGeometry(10000, 10000);
+// const fieldTexture = new THREE.MeshStandardMaterial({ map: grass });
+// const field = new THREE.Mesh(fieldPlane, fieldTexture);
+// field.rotation.x -= Math.PI / 2;
+// field.position.set(0, -4, 0);
+// scene.add(field);
+// console.log(window.innerWidth);
 
 /* Sätter ut 4 ljus källor runt Åva */
 
@@ -501,12 +550,16 @@ const lightCordinates = [
   new THREE.Vector3(100, 100, 100),
   new THREE.Vector3(-100, 100, 100),
   new THREE.Vector3(-100, 100, -100),
+  new THREE.Vector3(100, -100, -100),
+  new THREE.Vector3(100, -100, 100),
+  new THREE.Vector3(-100, -100, 100),
+  new THREE.Vector3(-1000, -100, -100),
 ];
 
 for (let index = 0; index < lightCordinates.length; index++) {
   let lightCordinate = lightCordinates[index];
   console.log(lightCordinate);
-  let sunLight = new THREE.DirectionalLight("#ffffff", 0.5);
+  let sunLight = new THREE.DirectionalLight("#ffffff", 0.4);
   sunLight.castShadow = true;
   sunLight.shadow.camera.far = 20;
   sunLight.shadow.mapSize.set(1024, 1024);
@@ -518,23 +571,23 @@ for (let index = 0; index < lightCordinates.length; index++) {
 /* Kontroler för att dra runt en viss punkt */
 
 const oControls = new OrbitControls(camera, renderer.domElement);
-oControls.minPolarAngle = 0;
-oControls.maxPolarAngle = Math.PI * 0.5;
-oControls.target.set(0, 0, -80);
-oControls.maxDistance = 600;
-oControls.minDistance = 20;
+// oControls.minPolarAngle = 0;
+// oControls.maxPolarAngle = Math.PI * 0.5;
+// oControls.target.set(0, 0, -80);
+// oControls.maxDistance = 600;
+// oControls.minDistance = 20;
 
 /*  Används för att kunna hitta kordinater för orbitcenter */
 
 const fControls = new FlyControls(camera, renderer.domElement);
-// fControls.movementSpeed = 30;
-// fControls.rollSpeed = Math.PI / 2;
-// fControls.dragToLook = true;
+fControls.movementSpeed = 30;
+fControls.rollSpeed = Math.PI / 2;
+fControls.dragToLook = true;
 
 /* Laddar in 3d byggnad Alla kod som manipulerar 3dmodelen måsta vara innanför load() */
 
 GLTF.load(
-  "/3D-modeler/skola.glb",
+  "/3D-modeler/skolasommar2023blend.glb",
   function (gltf) {
     /* lägger till 3d-modelen till scenen/canvas */
     let object = gltf.scene;
@@ -585,11 +638,152 @@ GLTF.load(
     let lesson = "";
     let tempInput = "";
     let result = "";
-
+    let startHour = "";
+    let startMinute = "";
+    let endHour = "";
+    let endMinute = "";
+    let dayOffset = 0;
+    let weekOffset = 0;
+    let weekDayoffset = 0;
+    let monthOffset = 0;
+    let yearOffset = 0;
+    let alteredMonth = month + monthOffset;
+    let alteredDay = monthday + dayOffset;
+    let alteredWeekday = weekDayoffset + weekDay;
+    let alteredWeek = weekOffset + week;
     // let sortedLessons = [];
 
+    rightCalendarbutton.addEventListener("click", (event) => {
+      dayOffset += 1;
+      weekDayoffset += 1;
+
+      if (
+        alteredMonth == 1 ||
+        alteredMonth == 3 ||
+        alteredMonth == 5 ||
+        alteredMonth == 7 ||
+        alteredMonth == 8 ||
+        alteredMonth == 10 ||
+        alteredMonth == 12
+      ) {
+        if (alteredDay >= 31) {
+          monthOffset += 1;
+          dayOffset = 1;
+          monthday = 0;
+        }
+      } else if (
+        alteredMonth == 4 ||
+        alteredMonth == 6 ||
+        alteredMonth == 9 ||
+        alteredMonth == 11
+      ) {
+        if (alteredDay >= 30) {
+          monthOffset += 1;
+          dayOffset = 1;
+          monthday = 0;
+        }
+      } else {
+        if (alteredDay >= 29) {
+          monthOffset += 1;
+          dayOffset = 1;
+          monthday = 0;
+        }
+      }
+
+      if (alteredWeekday >= 6) {
+        weekDayoffset = 0;
+        weekDay = 0;
+        weekOffset += 1;
+      }
+
+      if (alteredWeek >= 52) {
+        weekOffset = 0;
+        week = 0;
+      }
+
+      if (alteredMonth >= 12) {
+        month = 0;
+        monthOffset = 0;
+      }
+      alteredMonth = month + monthOffset;
+      alteredDay = monthday + dayOffset;
+      alteredWeekday = weekDayoffset + weekDay;
+      alteredWeek = weekOffset + week;
+      console.log(alteredWeekday, weekDayoffset, weekDay);
+      dateInformation.innerHTML = `<span id="week">Vecka ${alteredWeek}</span>
+      <span id="weekday">${weekdays[alteredWeekday]}</span>
+      <span id="date" style="margin-bottom:25px;">${alteredDay}/${alteredMonth}`;
+    });
+
+    leftCalendarbutton.addEventListener("click", (event) => {
+      dayOffset -= 1;
+      weekDayoffset -= 1;
+
+      if (
+        alteredMonth == 1 ||
+        alteredMonth == 3 ||
+        alteredMonth == 5 ||
+        alteredMonth == 7 ||
+        alteredMonth == 8 ||
+        alteredMonth == 10 ||
+        alteredMonth == 12
+      ) {
+        if (alteredDay <= 1) {
+          monthOffset -= 1;
+          dayOffset = 31;
+          monthday = 0;
+        }
+      } else if (
+        alteredMonth == 4 ||
+        alteredMonth == 6 ||
+        alteredMonth == 9 ||
+        alteredMonth == 11
+      ) {
+        if (alteredDay <= 1) {
+          monthOffset -= 1;
+          dayOffset = 31;
+          monthday = 0;
+        }
+      } else {
+        if (alteredDay <= 1) {
+          monthOffset -= 1;
+          dayOffset = 31;
+          monthday = 0;
+        }
+      }
+
+      if (alteredWeekday <= 0 || (alteredWeekday <= 0 && weekDayoffset < 0)) {
+        weekDayoffset = 6;
+        weekDay = 0;
+        weekOffset -= 1;
+      }
+
+      if (alteredWeek <= 0) {
+        weekOffset = 52;
+        week = 0;
+      }
+
+      if (alteredMonth <= 0) {
+        month = 0;
+        monthOffset = 12;
+      }
+
+      alteredMonth = month + monthOffset;
+      alteredDay = monthday + dayOffset;
+      alteredWeekday = weekDayoffset + weekDay;
+      alteredWeek = weekOffset + week;
+      console.log(alteredWeekday, weekDayoffset, weekDay);
+      console.log(alteredWeek, weekOffset, week);
+      dateInformation.innerHTML = `<span id="week">Vecka ${alteredWeek}</span>
+      <span id="weekday">${weekdays[alteredWeekday]}</span>
+      <span id="date" style="margin-bottom:25px;">${alteredDay}/${alteredMonth}`;
+      console.log(weekDay);
+    });
+
     rightButton.addEventListener("click", (event) => {
-      let lessons = schema[input][date];
+      console.log(input, week, alteredWeekday);
+      let lessons = schema[input][week][alteredWeekday];
+      console.log(lessons);
       let sortedLessons = [];
       lessons.forEach((element) => {
         if (element.type == "lektion" || element.type == "lastLesson") {
@@ -609,6 +803,10 @@ GLTF.load(
       }
 
       lesson = sortedLessons[result[1] + count].sal;
+      startHour = sortedLessons[result[1] + count].start.hour;
+      startMinute = sortedLessons[result[1] + count].start.minute;
+      endHour = sortedLessons[result[1] + count].end.hour;
+      endMinute = sortedLessons[result[1] + count].end.minute;
       console.log(lesson);
       console.log(salar[lesson].level);
 
@@ -626,10 +824,12 @@ GLTF.load(
 
       animationKey = true;
       oControls.autoRotate = false;
+      classroom.innerHTML = `<span>Sal ${lesson} </span><span>${startHour}:${startMinute} - ${endHour}:${endMinute}</span>`;
     });
 
     leftButton.addEventListener("click", (event) => {
-      let lessons = schema[input][date];
+      let lessons = schema[input][week][alteredWeekday];
+      console.log(lessons);
       let sortedLessons = [];
       lessons.forEach((element) => {
         if (element.type == "lektion" || element.type == "lastLesson") {
@@ -651,6 +851,10 @@ GLTF.load(
       }
 
       lesson = sortedLessons[result[1] + count].sal;
+      startHour = sortedLessons[result[1] + count].start.hour;
+      startMinute = sortedLessons[result[1] + count].start.minute;
+      endHour = sortedLessons[result[1] + count].end.hour;
+      endMinute = sortedLessons[result[1] + count].end.minute;
       console.log(lesson);
       console.log(salar[lesson].level);
 
@@ -668,6 +872,8 @@ GLTF.load(
 
       animationKey = true;
       oControls.autoRotate = false;
+      classroom.innerHTML = `<span>Sal ${lesson} </span>
+      <span>${startHour}:${startMinute} - ${endHour}:${endMinute}</span>`;
     });
 
     addEventListener("submit", (event) => {
@@ -731,8 +937,8 @@ GLTF.load(
         1
       )}, Y ${camera.position.y.toFixed(1)}, Z ${camera.position.z.toFixed(1)}`;
 
-      // fControls.update(0.01);
-      oControls.update(0.01);
+      fControls.update(0.01);
+      // oControls.update(0.01);
       if (animationKey == true) {
         if (
           camera.position.x.toFixed(1) == cameraTarget.x &&

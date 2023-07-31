@@ -57,7 +57,20 @@ section {
   justify-content: center;
   align-items: center;
 
+  margin-top: 20px;
+}
+
+#date-container {
+  position: relative;
+  width: 60%;
   margin-top: 100px;
+}
+
+#date-information {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 #classroom {
@@ -74,6 +87,17 @@ section {
 
 #left-button {
   left: 40px;
+}
+
+#left-calendar-button {
+  left: -40px;
+  top: calc(50% - 30px);
+  display: block;
+}
+#right-calendar-button {
+  right: -40px;
+  top: calc(50% - 30px);
+  display: block;
 }
 
 .buttons {
