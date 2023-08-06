@@ -358,7 +358,6 @@ const salar = {
   6215: { orbitcenter: [50, 34, -68.5], level: 6, side: "Nord" },
   6216: { orbitcenter: [38, 34, -68.5], level: 6, side: "Nord" },
   6218: { orbitcenter: [28.5, 34, -64], level: 6, side: "Nord" },
-  6218: { orbitcenter: [28.5, 34, -64], level: 6, side: "Nord" },
   6219: { orbitcenter: [21, 34, -64], level: 6, side: "Nord" },
   6220: { orbitcenter: [14, 34, -64], level: 6, side: "Nord" },
   6221: { orbitcenter: [6.5, 34, -64], level: 6, side: "Nord" },
@@ -571,18 +570,18 @@ for (let index = 0; index < lightCordinates.length; index++) {
 /* Kontroler för att dra runt en viss punkt */
 
 const oControls = new OrbitControls(camera, renderer.domElement);
-// oControls.minPolarAngle = 0;
-// oControls.maxPolarAngle = Math.PI * 0.5;
-// oControls.target.set(0, 0, -80);
-// oControls.maxDistance = 600;
-// oControls.minDistance = 20;
+oControls.minPolarAngle = 0;
+oControls.maxPolarAngle = Math.PI * 0.5;
+oControls.target.set(0, 0, -80);
+oControls.maxDistance = 600;
+oControls.minDistance = 20;
 
 /*  Används för att kunna hitta kordinater för orbitcenter */
 
-const fControls = new FlyControls(camera, renderer.domElement);
-fControls.movementSpeed = 30;
-fControls.rollSpeed = Math.PI / 2;
-fControls.dragToLook = true;
+// const fControls = new FlyControls(camera, renderer.domElement);
+// fControls.movementSpeed = 30;
+// fControls.rollSpeed = Math.PI / 2;
+// fControls.dragToLook = true;
 
 /* Laddar in 3d byggnad Alla kod som manipulerar 3dmodelen måsta vara innanför load() */
 
@@ -937,8 +936,8 @@ GLTF.load(
         1
       )}, Y ${camera.position.y.toFixed(1)}, Z ${camera.position.z.toFixed(1)}`;
 
-      fControls.update(0.01);
-      // oControls.update(0.01);
+      // fControls.update(0.01);
+      oControls.update(0.01);
       if (animationKey == true) {
         if (
           camera.position.x.toFixed(1) == cameraTarget.x &&
