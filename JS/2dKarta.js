@@ -709,19 +709,19 @@ rightButton.addEventListener("click", (event) => {
   console.log(salar[lesson].level);
 
   level = salar[lesson].level;
-  cameraTarget.set(
-    salar[lesson].orbitcenter[0],
-    salar[lesson].orbitcenter[1] + 30,
-    salar[lesson].orbitcenter[2] + 30
-  );
-  orbitTarget.set(
-    salar[lesson].orbitcenter[0],
-    salar[lesson].orbitcenter[1],
-    salar[lesson].orbitcenter[2]
-  );
+  ctx.drawImage(levels[level - 2], 0, 0, imageWidth, height);
 
-  animationKey = true;
-  oControls.autoRotate = false;
+  ctx.beginPath();
+  ctx.arc(
+    salar[lesson].x * imageWidth,
+    salar[lesson].y * height,
+    10,
+    0,
+    2 * Math.PI
+  );
+  ctx.fillStyle = "red";
+  ctx.fill();
+
   classroom.innerHTML = `<span>Sal ${lesson} </span><span>${startHour}:${startMinute} - ${endHour}:${endMinute}</span>`;
 });
 
@@ -757,19 +757,20 @@ leftButton.addEventListener("click", (event) => {
   console.log(salar[lesson].level);
 
   level = salar[lesson].level;
-  cameraTarget.set(
-    salar[lesson].orbitcenter[0],
-    salar[lesson].orbitcenter[1] + 30,
-    salar[lesson].orbitcenter[2] + 30
-  );
-  orbitTarget.set(
-    salar[lesson].orbitcenter[0],
-    salar[lesson].orbitcenter[1],
-    salar[lesson].orbitcenter[2]
-  );
 
-  animationKey = true;
-  oControls.autoRotate = false;
+  ctx.drawImage(levels[level - 2], 0, 0, imageWidth, height);
+
+  ctx.beginPath();
+  ctx.arc(
+    salar[lesson].x * imageWidth,
+    salar[lesson].y * height,
+    10,
+    0,
+    2 * Math.PI
+  );
+  ctx.fillStyle = "red";
+  ctx.fill();
+
   classroom.innerHTML = `<span>Sal ${lesson} </span>
       <span>${startHour}:${startMinute} - ${endHour}:${endMinute}</span>`;
 });

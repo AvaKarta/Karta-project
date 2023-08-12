@@ -107,6 +107,11 @@ section {
   width: 25px;
   top: calc(50% - 30px);
   display: none;
+  background: var(--Åva-blue);
+  border: white solid 1px;
+  border-radius: 10px;
+  color: white;
+  font-size: 1.5rem;
 }
 
 #canvas-container {
